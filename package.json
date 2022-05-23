@@ -1,0 +1,33 @@
+{
+  "name": "pubcrawl",
+  "version": "0.1.0",
+  "description": "PubCrawl: a collection of pubcrawls visble on the map",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maximpantschenko/pubcrawl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maximpantschenko/pubcrawl/issues"
+  },
+  "homepage": "https://github.com/maximpantschenko/pubcrawl#readme",
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2",
+    "@hapi/vision": "^6.1.0",
+    "handlebars": "^4.7.7"
+  }
+}
