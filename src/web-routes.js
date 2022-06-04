@@ -13,8 +13,10 @@ export const webRoutes = [
 
   { method: "GET", path: "/home", config: homeController.index },
   { method: "POST", path: "/home/addpublist", config: homeController.addPublist },
+  { method: "GET", path: "/home/deletepublist/{id}", config: homeController.deletePublist },
   { method: "GET", path: "/about", config: aboutController.index },
 
   { method: "GET", path: "/publist/{id}", config: publistController.index },
   { method: "POST", path: "/publist/{id}/addpub", config: publistController.addPub},
+  { method: "GET", path: "/publist/{id}/deletepub/{pubid}", config: publistController.deletePub },
 ];

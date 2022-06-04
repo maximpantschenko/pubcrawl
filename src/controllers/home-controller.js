@@ -25,4 +25,12 @@ export const homeController = {
       return h.redirect("/home");
     },
   },
+
+  deletePublist: {
+    handler: async function(request, h){
+      const publist = await db.publistStore.getPublistById(request.params.id);
+      await db.publistStore.deletePublistById(publist._id);
+      return h.redirect("/home");
+    },
+  },
 };

@@ -26,7 +26,7 @@ export const pubMemStore = {
         return pubs.filter((pub) => pub.publistid === publistId);
     },
 
-    async deletePubs(id){
+    async deletePub(id){
         const index = pubs.findIndex((pub) => pub._id === id);
         pubs.splice(index, 1);
     },

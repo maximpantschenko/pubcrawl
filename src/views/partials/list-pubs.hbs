@@ -4,6 +4,7 @@
             <th>Pub</th>
             <th>City</th>
             <th>Country</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,11 @@
                 </td>
                 <td>
                     {{country}}
+                </td>
+                <td>
+                    <a href="/publist/{{../publist._id}}/deletepub/{{_id}}" class=""ui icon button">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </td>
             </tr>
         {{/each}}

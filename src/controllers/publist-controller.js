@@ -24,4 +24,12 @@ export const publistController = {
             return h.redirect(`/publist/${publist._id}`);
         },
     },
+
+    deletePub: {
+        handler: async function(request, h){
+            const publist = await db.publistStore.getPublistById(request.params.id);
+            await db.pubStore.deletePub(request.params.pubid);
+            return h.redirect(`/publist/${publist._id}`);
+        },
+    },
 };
