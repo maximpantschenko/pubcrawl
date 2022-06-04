@@ -8,6 +8,10 @@ export const publistMemStore = {
         return publists;
     },
 
+    async getUserPublists(userid){
+        return publists.filter((publist) => publist.userid === userid);
+    },
+
     async addPublist(publist){
         publist._id = v4();
         publists.push(publist);
