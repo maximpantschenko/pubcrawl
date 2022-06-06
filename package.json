@@ -28,12 +28,14 @@
   "dependencies": {
     "@hapi/cookie": "^11.0.2",
     "@hapi/hapi": "^20.2.2",
+    "@hapi/inert": "^6.0.5",
     "@hapi/vision": "^6.1.0",
     "dotenv": "^16.0.1",
     "handlebars": "^4.7.7",
     "joi": "^17.6.0",
     "jquery": "^3.6.0",
     "jsdom": "^19.0.0",
+    "leaflet": "^1.8.0",
     "lowdb": "^3.0.0",
     "uuid": "^8.3.2"
   }
