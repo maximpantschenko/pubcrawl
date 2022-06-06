@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "firstName": "a",
+      "lastName": "a",
+      "email": "a@mail.com",
+      "password": "a",
+      "_id": "fe840111-ff25-4202-8a79-980ffdd8a12f"
+    },
+    {
+      "firstName": "b",
+      "lastName": "b",
+      "email": "b@mail.com",
+      "password": "b",
+      "_id": "9cf623eb-1c56-44a0-9b56-0a969fd002dc"
+    }
+  ]
+}

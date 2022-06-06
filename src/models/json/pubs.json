@@ -1,0 +1,25 @@
+{
+  "pubs": [
+    {
+      "name": "pub a1",
+      "city": "city a1",
+      "country": "country a1",
+      "_id": "e879fe33-4b7c-4e1d-929f-a7e04300682b",
+      "publistid": "4dbe8769-0a14-4fa7-9f35-fd7468af5baa"
+    },
+    {
+      "name": "pub a2",
+      "city": "city a2",
+      "country": "country a2",
+      "_id": "400f2319-36f1-42d2-8695-8ad2129d6d9a",
+      "publistid": "4dbe8769-0a14-4fa7-9f35-fd7468af5baa"
+    },
+    {
+      "name": "df",
+      "city": "df",
+      "country": "df",
+      "_id": "be2e700b-7782-467d-ba7b-c901bdcea9e5",
+      "publistid": "2254804a-d142-43bb-a32a-9b7b9540a224"
+    }
+  ]
+}
