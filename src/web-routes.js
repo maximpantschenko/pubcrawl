@@ -23,4 +23,15 @@ export const webRoutes = [
   { method: "GET", path: "/publist/{id}", config: publistController.index },
   { method: "POST", path: "/publist/{id}/addpub", config: publistController.addPub},
   { method: "GET", path: "/publist/{id}/deletepub/{pubid}", config: publistController.deletePub },
+
+  {
+    method: "GET",
+    path: "/{param*}",
+    handler: {
+      directory: {
+        path: "./public",
+      },
+    },
+    options: { auth: false },
+  },
 ];

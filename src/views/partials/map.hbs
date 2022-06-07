@@ -4,14 +4,29 @@
 
 <script>
     $(document).ready(function() {
-        var map = L.map('map').setView([51.505, -0.09], 13);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
+        function initMap2(){
+            const mapConfig = {
+            location: {lat: 52.160858, lng: -7.152420},
+            zoom: 8,
+            minZoom: 1,
+            };
 
-        var marker = L.marker([51.5, -0.09]).addTo(map);
+            const map = new LeafletMap("map", mapConfig);
+        }
 
+        function initMap(){
+            var map = L.map('map').setView([51.505, -0.09], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            var marker = L.marker([51.5, -0.09]).addTo(map);
+        }
+
+        //initMap()2;
+        initMap();
     });
 </script>
