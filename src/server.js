@@ -9,6 +9,7 @@ import Joi from "joi";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
+import { apiRoutes } from "./api-routes.js";
 import { db } from "./models/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -52,6 +53,7 @@ async function init() {
   server.auth.default("session");
   db.init("mongo");
   server.route(webRoutes);
+  server.route(apiRoutes);
   await server.start();
   console.log("Server running on %s", server.info.uri);
 }
