@@ -1,9 +1,13 @@
 <div class="box" id="map" style="height: 95vh">
   Hier sollte die Karte sein!
 </div>
-
 <script>
     $(document).ready(function() {
+        function onMapClick(e) {
+            console.log("You clicked the map at ");
+            console.log("lat: "+e.latlng.lat);
+            console.log("lng:"+e.latlng.lng);
+        }
 
         function initMap2(){
             const mapConfig = {
@@ -24,6 +28,15 @@
             }).addTo(map);
 
             var marker = L.marker([51.5, -0.09]).addTo(map);
+
+            marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+            map.on('click', onMapClick);
+
+            let newMap = new MapManager("Ford");
+            newMap.test();
+
+            console.log(pubs);
         }
 
         //initMap()2;
