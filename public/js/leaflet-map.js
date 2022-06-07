@@ -1,6 +1,4 @@
-import * as L from "leaflet";
-
-export class LeafletMap {
+class LeafletMap {
   imap = {};
   control = {};
   overlays = {};

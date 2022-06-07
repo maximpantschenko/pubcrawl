@@ -4,6 +4,8 @@
             <th>Pub</th>
             <th>City</th>
             <th>Country</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -18,6 +20,12 @@
                 </td>
                 <td>
                     {{country}}
+                </td>
+                <td>
+                    {{lat}}
+                </td>
+                <td>
+                    {{lng}}
                 </td>
                 <td>
                     <a href="/publist/{{../publist._id}}/deletepub/{{_id}}" class=""ui icon button">

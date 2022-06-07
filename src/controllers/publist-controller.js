@@ -19,6 +19,8 @@ export const publistController = {
                 name: request.payload.name,
                 city: request.payload.city,
                 country: request.payload.country,
+                lat: request.payload.lat,
+                lng: request.payload.lng,
             };
             await db.pubStore.addPub(publist._id, newPub);
             return h.redirect(`/publist/${publist._id}`);

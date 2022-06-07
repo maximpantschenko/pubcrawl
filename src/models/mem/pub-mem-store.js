@@ -39,5 +39,7 @@ export const pubMemStore = {
         pub.name = updatedPub.name;
         pub.city = updatedPub.city;
         pub.country = updatedPub.country;
+        pub.lat = updatedPub.lat;
+        pub.lng = updatedPub.lng;
     },
 };

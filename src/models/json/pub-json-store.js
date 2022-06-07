@@ -46,6 +46,8 @@ export const pubJsonStore = {
         pub.name = updatePub.name,
         pub.city = updatePub.city,
         pub.country = updatePub.country,
+        pub.lat = updatePub.lat,
+        pub.lng = updatePub.lng,
         await db.write();
     },
 };
