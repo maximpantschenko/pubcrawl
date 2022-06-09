@@ -3,7 +3,9 @@ import { db } from "../models/db.js";
 
 export const pubApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           const pubs = await db.pubStore.getAllPubs();
@@ -15,7 +17,9 @@ export const pubApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     async handler(request) {
         try {
           const pub = await db.pubStore.getPubById(request.params.id);
@@ -30,7 +34,9 @@ export const pubApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           const pub = await db.pubStore.addPub(request.params.id, request.payload);
@@ -45,7 +51,9 @@ export const pubApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           await db.pubStore.deleteAllPubs();
@@ -57,7 +65,9 @@ export const pubApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           const pub = await db.pubStore.getPubById(request.params.id);

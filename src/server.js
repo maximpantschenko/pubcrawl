@@ -6,8 +6,10 @@ import path from "path";
 import Cookie from "@hapi/cookie";
 import dotenv from "dotenv";
 import Joi from "joi";
+import jwt from "hapi-auth-jwt2";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { fileURLToPath } from "url";
+import { validate } from "./api/jwt-utils.js";
 import { webRoutes } from "./web-routes.js";
 import { apiRoutes } from "./api-routes.js";
 import { db } from "./models/db.js";
@@ -23,12 +25,14 @@ if(result.error){
 
 async function init() {
   const server = Hapi.server({
-    port: 3000,
-    host: "localhost",
+    port: process.env.PORT || 4000,
+    routes: { cors: true },
   });
   await server.register(Vision);
   await server.register(Cookie);
   await server.register(Inert);
+  await server.register(jwt);
+
   server.validator(Joi);
   server.views({
     engines: {
@@ -43,17 +47,25 @@ async function init() {
   });
   server.auth.strategy("session","cookie",{
     cookie:{
-      name: process.env.COOKIE_NAME,
-      password: process.env.COOKIE_PASSWORD,
+      name: process.env.cookie_name,
+      password: process.env.cookie_password,
       isSecure: false,
     },
     redirectTo: "/",
     validateFunc: accountsController.validate,
   });
+  server.auth.strategy("jwt","jwt", {
+    key: process.env.cookie_password,
+    validate: validate,
+    verfiyOptions: { algorithms: ["HS256"]}
+  });
   server.auth.default("session");
+
   db.init("mongo");
+
   server.route(webRoutes);
   server.route(apiRoutes);
+  
   await server.start();
   console.log("Server running on %s", server.info.uri);
 }
@@ -63,4 +75,4 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-init();
+await init();

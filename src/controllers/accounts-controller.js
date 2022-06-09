@@ -16,17 +16,10 @@ export const accountsController = {
   },
   signup: {
     auth: false,
-    validate: {
-      payload: UserSpec,
-      options: { abortEarly: false },
-      failAction:function(request, h, error){
-        return h.view("signup-view", { title: "Signup up error ", errors: error.details }).takeover().code(400);
-      },
-    },
     handler: async function (request, h) {
       const user = request.payload;
       await db.userStore.addUser(user);
-      return h.redirect("/");
+      return h.redirect("/login");
     },
   },
   showLogin: {
@@ -43,8 +36,8 @@ export const accountsController = {
       if (!user || user.password !== password) {
         return h.redirect("/");
       }
-      request.cookieAuth.set({ id: user._id});
-      return h.redirect("/home");
+      request.cookieAuth.set({ id: user._id });
+      return h.redirect("/discover");
     },
   },
   logout: {

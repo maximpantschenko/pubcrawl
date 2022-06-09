@@ -3,7 +3,9 @@ import { db } from "../models/db.js";
 
 export const publistApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           const publists = await db.publistStore.getAllPublists();
@@ -15,7 +17,9 @@ export const publistApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     async handler(request) {
         try {
           const publist = await db.publistStore.getPublistById(request.params.id);
@@ -30,7 +34,9 @@ export const publistApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           const publist = request.payload;
@@ -46,7 +52,9 @@ export const publistApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           const publist = await db.publistStore.getPublistById(request.params.id);
@@ -62,7 +70,9 @@ export const publistApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
         try {
           await db.publistStore.deleteAllPublists();
