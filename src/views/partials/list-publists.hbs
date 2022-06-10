@@ -1,0 +1,15 @@
+{{#each publists}}
+    <div class="box box-link-hover-shadow">
+        <h2 class="title">
+            {{title}}
+        </h2>
+        <a href="/publist/{{_id}}" class="button">
+            <span class="icon is-small">
+                <i class="fa-solid fa-folder"></i>
+            </span>
+        </a>
+        <a href="/home/deletepublist/{{_id}}" class="button">
+            <i class="fas fa-trash"></i>
+        </a>
+    </div>
+{{/each}}

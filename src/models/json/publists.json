@@ -1,0 +1,19 @@
+{
+  "publists": [
+    {
+      "userid": "fe840111-ff25-4202-8a79-980ffdd8a12f",
+      "title": "publist a1",
+      "_id": "4dbe8769-0a14-4fa7-9f35-fd7468af5baa"
+    },
+    {
+      "userid": "fe840111-ff25-4202-8a79-980ffdd8a12f",
+      "title": "publist a2",
+      "_id": "743e669f-e2ad-475d-aa91-111e7e88cd70"
+    },
+    {
+      "userid": "9cf623eb-1c56-44a0-9b56-0a969fd002dc",
+      "title": "publist b1",
+      "_id": "2254804a-d142-43bb-a32a-9b7b9540a224"
+    }
+  ]
+}

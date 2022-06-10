@@ -1,0 +1,13 @@
+{
+  "pubs": [
+    {
+      "name": "Pub A",
+      "city": "City A",
+      "country": "Country A",
+      "lat": "53.2",
+      "lng": "-7.3",
+      "_id": "b0fe6fa4-9700-4844-a634-388c92d3a3aa",
+      "publistid": "4dbe8769-0a14-4fa7-9f35-fd7468af5baa"
+    }
+  ]
+}

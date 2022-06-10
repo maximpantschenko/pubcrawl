@@ -1,10 +1,15 @@
 import { v4 } from "uuid";
+import { pubMemStore } from "./pub-mem-store.js";
 
 let publists = [];
 
 export const publistMemStore = {
     async getAllPublists(){
         return publists;
+    },
+
+    async getUserPublists(userid){
+        return publists.filter((publist) => publist.userid === userid);
     },
 
     async addPublist(publist){
@@ -15,6 +20,12 @@ export const publistMemStore = {
 
     async getPublist(id){
         return publist.find((publist) => publist._id === id);
+    },
+
+    async getPublistById(id){
+        const list = publists.find((publist) => publist._id === id);
+        list.pubs = await pubMemStore.getPubsByPublistId(list._id);
+        return list;
     },
 
     async deletePublistById(id){

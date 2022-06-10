@@ -1,15 +1,77 @@
-<nav class="navbar">
-  <div class="navbar-brand">
-    {{> pubcrawl-brand}}
-  </div>
-  <div class="navbar-menu" id="navMenu">
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a id="home" class="button" href="/home"> Dashboard </a>
-          <a id="logout" class="button" href="/logout"> Logout </a>
+<nav class="navbar h-full" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/home">
+        {{> pubcrawl-brand}}
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a href="/home" class="navbar-item">
+          Home
+        </a>
+  
+        <a href="/discover" class="navbar-item">
+          Discover
+        </a>
+  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a href="#d" class="navbar-link">
+            More
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a href="#d" class="navbar-item">
+              About
+            </a>
+            <a href="#d" class="navbar-item">
+              Jobs
+            </a>
+            <a href="#d" class="navbar-item">
+              Contact
+            </a>
+            <hr class="navbar-divider">
+            <a href="#d" class="navbar-item">
+              Report an issue
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a href="/logout"class="button is-primary">
+              <strong>Logout</strong>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+
+<script>
+    $(document).ready(function() {
+
+    // Check for click events on the navbar burger icon
+    $(".navbar-burger").click(function() {
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+    });
+  });
+</script>
+
+<style>
+  .navbar{
+    z-index:999;
+    height: 5vh;
+  }
+</style>
