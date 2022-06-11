@@ -7,6 +7,7 @@
             <th>Latitude</th>
             <th>Longitude</th>
             <th>&nbsp;</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +29,12 @@
                     {{lng}}
                 </td>
                 <td>
-                    <a href="/publist/{{../publist._id}}/deletepub/{{_id}}" class=""ui icon button">
+                    <a href="/pub/{{../publist._id}}/editpub/{{_id}}" class="ui icon button">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="/publist/{{../publist._id}}/deletepub/{{_id}}" class="ui icon button">
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>

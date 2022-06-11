@@ -39,5 +39,12 @@ export const publistMongoStore = {
 
   async deleteAllPublists() {
     await Publist.deleteMany({});
-  }
+  },
+
+  async updatePublist(updatedPublist) {
+    const publist = await Publist.findOne({ _id: updatedPublist._id });
+    publist.title = updatedPublist.title;
+    publist.img = updatedPublist.img;
+    await publist.save();
+  },
 };

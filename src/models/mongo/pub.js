@@ -8,6 +8,7 @@ const pubSchema = new Schema({
   country: String,
   lat: String,
   lng: String,
+  img: String,
   publistid: {
     type: Schema.Types.ObjectId,
     ref: "Publist",

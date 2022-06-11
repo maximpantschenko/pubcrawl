@@ -1,0 +1,23 @@
+<form class="box" action="/pub/{{publist._id}}/updatepub/{{pub._id}}" method="POST">
+  <label>Enter Pub Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Name" name="name" value="{{pub.name}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter City" name="city" value="{{pub.city}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Country" name="country" value="{{pub.country}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Latitude" name="lat" value="{{pub.lat}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Longitude" name="lng" value="{{pub.lng}}">
+      </div>
+    </div>
+  </div>
+  <button class="button is-primary">Save</button>
+</form>

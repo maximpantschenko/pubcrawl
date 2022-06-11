@@ -1,4 +1,5 @@
 import { Pub } from "./pub.js";
+import { Publist } from "./publist.js";
 
 export const pubMongoStore = {
   async getAllPubs() {
@@ -38,10 +39,14 @@ export const pubMongoStore = {
     await Pub.deleteMany({});
   },
 
-  async updateTpub(pub, updatedPub) {
-    pub.title = updatedPub.title;
-    pub.artist = updatedPub.artist;
-    pub.duration = updatedPub.duration;
+  async updatePub(pubid, updatedPub) {
+    const pub = await Pub.findOne({ _id: pubid });
+    pub.name = updatedPub.name;
+    pub.city = updatedPub.city;
+    pub.country = updatedPub.country;
+    pub.lat = updatedPub.lat;
+    pub.lng = updatedPub.lng;
+    pub.img = updatedPub.img;
     await pub.save();
   },
 };
