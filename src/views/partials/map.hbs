@@ -9,7 +9,15 @@
 </div>
 <script>
     $(document).ready(function() {
+        function setLocations(getLat, getLng){
+            $(".input-lat").val(getLat);
+            $(".input-lng").val(getLng);
+        }
+
         function onMapClick(e) {
+            if($(".input-lat") != null){
+                setLocations(e.latlng.lat, e.latlng.lng);
+            }
             console.log("You clicked the map at position: ");
             console.log("lat: "+e.latlng.lat);
             console.log("lng:"+e.latlng.lng);

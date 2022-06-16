@@ -33,11 +33,9 @@ export const pubController = {
 
     uploadImage: {
         handler: async function(request, h) {
-            console.log("in uploadImage");
           try {
             const publist = await db.publistStore.getPublistById(request.params.id);
             const pub = await db.pubStore.getPubById(request.params.pubid);
-            console.log("erfolgreich in uploadImage");
             const file = request.payload.imagefile;
             if (Object.keys(file).length > 0) {
               const url = await imageStore.uploadImage(request.payload.imagefile);
