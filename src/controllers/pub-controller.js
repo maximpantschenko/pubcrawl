@@ -1,32 +1,60 @@
 //import { PubSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { imageStore } from "../models/image-store.js";
 
 export const pubController = {
-  index: {
-    handler: async function (request, h) {
-      const publist = await db.publistStore.getPublistById(request.params.id);
-      const pub = await db.pubStore.getPubById(request.params.pubid);
-      const viewData = {
-        title: "Edit Pub",
-        publist: publist,
-        pub: pub,
-      };
-      return h.view("pub-view", viewData);
-    },
-  },
-
-  update: {
-    handler: async function (request, h){
-        const newPub = {
-            name: request.payload.name,
-            city: request.payload.city,
-            country: request.payload.country,
-            lat: request.payload.lat,
-            lng: request.payload.lng,
-            img: request.payload.img,
+    index: {
+        handler: async function (request, h) {
+        const publist = await db.publistStore.getPublistById(request.params.id);
+        const pub = await db.pubStore.getPubById(request.params.pubid);
+        const viewData = {
+            title: "Edit Pub",
+            publist: publist,
+            pub: pub,
         };
-        await db.pubStore.updatePub(request.params.pubid, newPub);
-        return h.redirect(`/publist/${request.params.id}`);
+        return h.view("pub-view", viewData);
+        },
     },
-},
+
+    update: {
+        handler: async function (request, h){
+            const newPub = {
+                name: request.payload.name,
+                city: request.payload.city,
+                country: request.payload.country,
+                lat: request.payload.lat,
+                lng: request.payload.lng,
+                img: request.payload.img,
+            };
+            await db.pubStore.updatePub(request.params.pubid, newPub);
+            return h.redirect(`/publist/${request.params.id}`);
+        },
+    },
+
+    uploadImage: {
+        handler: async function(request, h) {
+            console.log("in uploadImage");
+          try {
+            const publist = await db.publistStore.getPublistById(request.params.id);
+            const pub = await db.pubStore.getPubById(request.params.pubid);
+            console.log("erfolgreich in uploadImage");
+            const file = request.payload.imagefile;
+            if (Object.keys(file).length > 0) {
+              const url = await imageStore.uploadImage(request.payload.imagefile);
+              pub.img = url;
+              db.pubStore.updatePub(request.params.pubid, pub);
+            }
+            return h.redirect(`/publist/${publist._id}`);
+          } catch (err) {
+            console.log(err);
+            return h.redirect(`/publist/${publist._id}`);
+          }
+        },
+        payload: {
+            multipart: true,
+            output: "data",
+            maxBytes: 209715200,
+            parse: true
+        },
+    },
 };

@@ -4,9 +4,17 @@
     <div class="title">
         {{publist.title}}
     </div>
-    {{> list-pubs}}
-    {{> add-pub}}
-    <div class="column">
-        {{> publist-image }}
+    <div>
+        {{> publist-image}}
     </div>
+    <div class="column">
+        {{> list-pubs}}
+    </div>
+    <div class="columns">
+        <div class="column has-text-centerd relative md:fixed sm:w-full md:w-10/12 p-2 h-screen">
+            {{> map}}
+        </div>
+        <div class="column has-text-centerd is-half relative md:fixed sm:w-full md:w-10/12 p-2 h-screen">
+            {{> add-pub}}
+        </div>
 </section>

@@ -28,6 +28,7 @@ export const webRoutes = [
 
   { method: "GET", path: "/pub/{id}/editpub/{pubid}", config: pubController.index },
   { method: "POST", path: "/pub/{id}/updatepub/{pubid}", config: pubController.update },
+  { method: "POST", path: "/pub/{id}/uploadimage/{pubid}", config: pubController.uploadImage },
 
   {
     method: "GET",

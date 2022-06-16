@@ -1,46 +1,39 @@
 <form class="box" action="/publist/{{publist._id}}/addpub" method="POST">
   <label>Enter Pub Details:</label>
-  <div class="field is-horizontal">
-    <div class="field-body">
-      <div class="field">
-        <input class="input" type="text" placeholder="Enter Name" name="name">
-      </div>
-      <div class="field">
-        <input class="input" type="text" placeholder="Enter City" name="city">
-      </div>
-      <div class="field">
-        <input class="input" type="text" placeholder="Enter Country" name="country">
-      </div>
-      <div class="field">
-        <input class="input" type="text" placeholder="Latitude" name="lat">
-      </div>
-      <div class="field">
-        <input class="input" type="text" placeholder="Longitude" name="lng">
-      </div>
-      <div id="file-select" class="file has-name is-fullwidth">
-        <label class="file-label"> <input class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="fas fa-upload"></i>
-            </span>
-            <span class="file-label">
-              Choose a file…
-            </span>
-           </span>
-          <span class="file-name"></span>
-        </label>
-      </div>
+  <div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Enter Name" name="name">
     </div>
   </div>
+
+  <div class="field">
+    <label class="label">City</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Enter City" name="city">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Country</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Enter City" name="country">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Latitude</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Enter Latitude" name="lat">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Longitude</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Enter Longitude" name="lng">
+    </div>
+  </div>
+
   <button class="button is-primary">Add Pub</button>
 </form>
-
-<script>
-  const fileInput = document.querySelector(".file-input");
-  fileInput.onchange = () => {
-    if (fileInput.files.length > 0) {
-      const fileName = document.querySelector(".file-name");
-      fileName.textContent = fileInput.files[0].name;
-    }
-  };
-</script>

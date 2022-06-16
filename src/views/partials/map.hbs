@@ -1,5 +1,11 @@
 <div class="box" id="map" style="height: 95vh">
-  Hier sollte die Karte sein!
+    <a href="/pub/{{../publist._id}}">
+        <button id="addBarBtn" class="button is-primary leaflet-bottom leaflet-right">
+            <span class="icon is-small">
+                <i class="fa-solid fa-plus"></i>
+            </span>
+        </button>
+    </a>
 </div>
 <script>
     $(document).ready(function() {
@@ -32,14 +38,20 @@
             marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 
             map.on('click', onMapClick);
-
-            let newMap = new MapManager("Ford");
-            newMap.test();
-
-            console.log(pubs);
         }
 
         //initMap()2;
         initMap();
     });
 </script>
+
+<style>
+     #addBarBtn{
+        z-index: 9999;
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        pointer-events: auto;
+        border-radius: 50%;
+    }
+</style>

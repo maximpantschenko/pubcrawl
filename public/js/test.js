@@ -1,1 +1,0 @@
-console.log("in public js test");
