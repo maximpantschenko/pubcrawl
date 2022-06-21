@@ -20,4 +20,5 @@ export const apiRoutes = [
     { method: "POST", path: "/api/publists/{id}/pubs", config: pubApi.create },
     { method: "DELETE", path: "/api/pubs", config: pubApi.deleteAll },
     { method: "DELETE", path: "/api/pubs/{id}", config: pubApi.deleteOne },
+    { method: "POST", path: "/api/updatepub/{pubid}", config: pubApi.update},
 ];

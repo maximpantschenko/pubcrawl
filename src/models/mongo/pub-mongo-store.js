@@ -48,5 +48,6 @@ export const pubMongoStore = {
     pub.lng = updatedPub.lng;
     pub.img = updatedPub.img;
     await pub.save();
+    return pub;
   },
 };

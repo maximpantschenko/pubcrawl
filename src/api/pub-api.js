@@ -50,6 +50,24 @@ export const pubApi = {
       },
   },
 
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const oldPub = await db.pubStore.getPubById(request.params.pubid);
+          if(!oldPub){
+            return Boom.notFound("No pub with this id");
+          }
+          const newPub = await db.pubStore.updatePub(oldPub, request.payload);
+          return newPub;
+        } catch (err) {
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+  },
+
   deleteAll: {
     auth: {
       strategy: "jwt",
