@@ -38,12 +38,24 @@ export const pubApi = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
+        console.log("in handler create")
         try {
-          const pub = await db.pubStore.addPub(request.params.id, request.payload);
+          const publist = await db.publistStore.getPublistById(request.params.id);
+          if(!publist){
+            return Boom.notFound("No publist with this id");
+          }
+          const newPub = {
+            name: request.payload.name,
+            city: request.payload.city,
+            country: request.payload.country,
+            lat: request.payload.lat,
+            lng: request.payload.lng,
+            img: request.payload.img,
+          };
+          const pub = await db.pubStore.addPub(publist._id, newPub);
           if (pub) {
             return h.response(pub).code(201);
           }
-          return Boom.badImplementation("error creating pub");
         } catch (err) {
           return Boom.serverUnavailable("Database Error");
         }

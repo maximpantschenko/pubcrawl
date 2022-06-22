@@ -17,7 +17,7 @@ export const apiRoutes = [
 
     { method: "GET", path: "/api/pubs", config: pubApi.find },
     { method: "GET", path: "/api/pubs/{id}", config: pubApi.findOne },
-    { method: "POST", path: "/api/publists/{id}/pubs", config: pubApi.create },
+    { method: "POST", path: "/api/publists/{id}/createpub", config: pubApi.create },
     { method: "DELETE", path: "/api/pubs", config: pubApi.deleteAll },
     { method: "DELETE", path: "/api/pubs/{id}", config: pubApi.deleteOne },
     { method: "POST", path: "/api/updatepub/{pubid}", config: pubApi.update},
