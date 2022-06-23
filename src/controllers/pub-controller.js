@@ -37,6 +37,8 @@ export const pubController = {
             const publist = await db.publistStore.getPublistById(request.params.id);
             const pub = await db.pubStore.getPubById(request.params.pubid);
             const file = request.payload.imagefile;
+            console.log("upload image pub controller");
+            console.log(request.payload.imagefile);
             if (Object.keys(file).length > 0) {
               const url = await imageStore.uploadImage(request.payload.imagefile);
               pub.img = url;

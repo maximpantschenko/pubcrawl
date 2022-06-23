@@ -19,6 +19,8 @@ export const imageStore = {
   },
 
   uploadImage: async function(imagefile) {
+    console.log("imagefile in uploadImage");
+    console.log(imagefile);
     await writeFileSync("./public/temp.img", imagefile);
     const response = await cloudinary.v2.uploader.upload("./public/temp.img");
     return response.url;

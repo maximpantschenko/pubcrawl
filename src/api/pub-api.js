@@ -1,5 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { imageStore } from "../models/image-store.js";
 
 export const pubApi = {
   find: {
@@ -38,8 +39,9 @@ export const pubApi = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-        console.log("in handler create")
         try {
+          console.log("update pub api: #################################################");
+          console.log(request.payload);
           const publist = await db.publistStore.getPublistById(request.params.id);
           if(!publist){
             return Boom.notFound("No publist with this id");
@@ -52,6 +54,13 @@ export const pubApi = {
             lng: request.payload.lng,
             img: request.payload.img,
           };
+          if(request.payload.file!=null){
+            const file = request.payload.file;
+            if(Object.keys(file).length > 0){
+              const url = await imageStore.uploadImage(request.payload.file);
+              newPub.img = url;
+            }
+          }
           const pub = await db.pubStore.addPub(publist._id, newPub);
           if (pub) {
             return h.response(pub).code(201);
@@ -59,6 +68,12 @@ export const pubApi = {
         } catch (err) {
           return Boom.serverUnavailable("Database Error");
         }
+      },
+      payload: {
+        multipart: true,
+        output: "data",
+        maxBytes: 209715200,
+        parse: true
       },
   },
 
@@ -68,15 +83,39 @@ export const pubApi = {
     },
     handler: async function (request, h) {
         try {
+          console.log("update pub api: #################################################");
+          console.log(request.payload);
           const oldPub = await db.pubStore.getPubById(request.params.pubid);
           if(!oldPub){
             return Boom.notFound("No pub with this id");
           }
-          const newPub = await db.pubStore.updatePub(oldPub, request.payload);
-          return newPub;
+          const newPub = {
+            name: request.payload.name,
+            city: request.payload.city,
+            country: request.payload.country,
+            lat: request.payload.lat,
+            lng: request.payload.lng,
+            img: request.payload.img,
+          };
+          if(request.payload.file!=null){
+            const file = request.payload.file;
+            if(Object.keys(file).length > 0){
+              const url = await imageStore.uploadImage(request.payload.file);
+              newPub.img = url;
+            }
+          }
+          const updatedPub = await db.pubStore.updatePub(oldPub, newPub);
+          return updatedPub;
         } catch (err) {
+          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
+      },
+      payload: {
+        multipart: true,
+        output: "data",
+        maxBytes: 209715200,
+        parse: true
       },
   },
 
