@@ -1,0 +1,28 @@
+<table class="table is-fullwidth">
+    <thead>
+        <tr>
+            <th>Music Category</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each categoriesMusic}}
+            <tr>
+                <td>
+                    {{name}}
+                </td>
+                <td>
+                    <a href="/category/music/edit/{{_id}}" class="ui icon button">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="/category/music/delete/{{_id}}" class="ui icon button is-danger">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
