@@ -1,0 +1,33 @@
+{{> menu}}
+
+<div class="columns is-desktop">
+    <div class="column is-one-quarter">
+        {{> dashboard-menu active="a-category-music"}}
+    </div>
+    <div class="column"> 
+        <section class="section">
+            <div class="box">
+                <h1 class="title">{{title}}</h1>
+                <h2 class="subtitle">
+                    {{subtitle}}
+                </h2>
+            </div>
+            <div class="box">
+                <form action="/category/music/update/{{categoryMusic._id}}" method="POST">
+                    <div class="field">
+                        <label class="label">Add Music Category</label>
+                        <input class="input" type="text" placeholder="Enter a Music Category" name="name" value="{{categoryMusic.name}}">
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                        <button type="submit" class="button is-link">Submit</button>
+                        </div>
+                        <div class="control">
+                        <a href="/category/music" class="button is-link is-light">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

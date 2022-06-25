@@ -9,12 +9,14 @@ import { pubJsonStore } from "./json/pub-json-store.js";
 import { userMongoStore } from "./mongo/user-mongo-store.js";
 import { publistMongoStore } from "./mongo/publist-mongo-store.js";
 import { pubMongoStore } from "./mongo/pub-mongo-store.js";
+import { categoryMusicMongoStore } from "./mongo/category-music-mongo-store.js";
 import { connectMongo } from "./mongo/connect.js";
 
 export const db = {
   userStore: null,
   publistStore: null,
   pubStore: null,
+  categoryMusicStore: null,
 
   init(storeType) {
     switch (storeType) {
@@ -27,6 +29,7 @@ export const db = {
         this.userStore = userMongoStore;
         this.publistStore = publistMongoStore;
         this.pubStore = pubMongoStore;
+        this.categoryMusicStore = categoryMusicMongoStore;
         connectMongo();
         break;
       default:
