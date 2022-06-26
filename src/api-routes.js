@@ -2,6 +2,7 @@ import { userApi } from "./api/user-api.js";
 import { publistApi } from "./api/publist-api.js";
 import { pubApi } from "./api/pub-api.js";
 import { categoriesApi } from "./api/categories-api.js";
+import { commentApi } from "./api/comment-api.js";
 
 export const apiRoutes = [
     { method: "GET", path: "/api/users", config: userApi.find },
@@ -25,4 +26,9 @@ export const apiRoutes = [
 
     { method: "GET", path: "/api/getCategoriesMusic/", config: categoriesApi.getCategoriesMusic },
     //{ method: "POST", path: "/api/getCategoriesMusicByIds", config: categoriesApi.getCategoriesMusicByIds },
+
+    { method: "GET", path: "/api/comments/all", config: commentApi.find },
+    { method: "GET", path: "/api/comments/bypubid/{id}", config: commentApi.findByPubId },
+    { method: "POST", path: "/api/comments/add", config: commentApi.create },
+
 ];

@@ -23,9 +23,7 @@ export const pubApi = {
     },
     async handler(request) {
         try {
-          console.log("inside pub api find one");
           const pub = await db.pubStore.getPubById(request.params.id);
-          console.log("pub api");
           if (!pub) {
             return Boom.notFound("No pub with this id");
           }

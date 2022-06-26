@@ -11,6 +11,7 @@ import { publistMongoStore } from "./mongo/publist-mongo-store.js";
 import { pubMongoStore } from "./mongo/pub-mongo-store.js";
 import { categoryMusicMongoStore } from "./mongo/category-music-mongo-store.js";
 import { connectMongo } from "./mongo/connect.js";
+import { commentMongoStore } from "./mongo/comment-mongo-store.js";
 
 export const db = {
   userStore: null,
@@ -30,6 +31,7 @@ export const db = {
         this.publistStore = publistMongoStore;
         this.pubStore = pubMongoStore;
         this.categoryMusicStore = categoryMusicMongoStore;
+        this.commentStore = commentMongoStore;
         connectMongo();
         break;
       default:
