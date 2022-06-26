@@ -20,6 +20,16 @@ export const categoryMusicMongoStore = {
     return null;
   },
 
+  async getCategoriesByIds(ids){
+    console.log("category music store");
+    console.log(ids);
+    if(ids){
+      const categories = await CategoryMusic.find( { _id: { $in: ids } } );
+      return categories;
+    }
+    return null;
+  },
+
   async deleteCategory(id) {
     try {
       await CategoryMusic.deleteOne({ _id: id });

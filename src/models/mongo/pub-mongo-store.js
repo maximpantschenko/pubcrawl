@@ -1,5 +1,6 @@
 import { Pub } from "./pub.js";
 import { Publist } from "./publist.js";
+import { categoryMusicMongoStore } from "./category-music-mongo-store.js";
 
 export const pubMongoStore = {
   async getAllPubs() {
@@ -21,7 +22,14 @@ export const pubMongoStore = {
 
   async getPubById(id) {
     if (id) {
+      console.log("inside pub store getPubById");
       const pub = await Pub.findOne({ _id: id }).lean();
+      console.log("getPubById");
+      //console.log(pub.categoriesMusic[0]._id);
+      const categoriesMusic = await categoryMusicMongoStore.getCategoriesByIds(pub.categoriesMusic);
+      console.log("getPubById in pub mongo store");
+      //console.log(categoriesMusic);
+      pub.categoriesMusic = categoriesMusic;
       return pub;
     }
     return null;
@@ -47,6 +55,7 @@ export const pubMongoStore = {
     pub.lat = updatedPub.lat;
     pub.lng = updatedPub.lng;
     pub.img = updatedPub.img;
+    pub.categoriesMusic = updatedPub.categoriesMusic;
     await pub.save();
     return pub;
   },

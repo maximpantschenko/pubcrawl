@@ -1,6 +1,7 @@
 import { userApi } from "./api/user-api.js";
 import { publistApi } from "./api/publist-api.js";
 import { pubApi } from "./api/pub-api.js";
+import { categoriesApi } from "./api/categories-api.js";
 
 export const apiRoutes = [
     { method: "GET", path: "/api/users", config: userApi.find },
@@ -21,4 +22,7 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/pubs", config: pubApi.deleteAll },
     { method: "DELETE", path: "/api/pubs/{id}", config: pubApi.deleteOne },
     { method: "POST", path: "/api/updatepub/{pubid}", config: pubApi.update},
+
+    { method: "GET", path: "/api/getCategoriesMusic/", config: categoriesApi.getCategoriesMusic },
+    //{ method: "POST", path: "/api/getCategoriesMusicByIds", config: categoriesApi.getCategoriesMusicByIds },
 ];

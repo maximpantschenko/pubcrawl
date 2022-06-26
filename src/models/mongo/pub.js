@@ -9,6 +9,10 @@ const pubSchema = new Schema({
   lat: String,
   lng: String,
   img: String,
+  categoriesMusic: [{
+    type: Schema.Types.ObjectId,
+    ref: "CategoryMusic",
+  }],
   publistid: {
     type: Schema.Types.ObjectId,
     ref: "Publist",

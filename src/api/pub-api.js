@@ -23,7 +23,9 @@ export const pubApi = {
     },
     async handler(request) {
         try {
+          console.log("inside pub api find one");
           const pub = await db.pubStore.getPubById(request.params.id);
+          console.log("pub api");
           if (!pub) {
             return Boom.notFound("No pub with this id");
           }
@@ -40,8 +42,6 @@ export const pubApi = {
     },
     handler: async function (request, h) {
         try {
-          console.log("update pub api: #################################################");
-          console.log(request.payload);
           const publist = await db.publistStore.getPublistById(request.params.id);
           if(!publist){
             return Boom.notFound("No publist with this id");
@@ -53,6 +53,7 @@ export const pubApi = {
             lat: request.payload.lat,
             lng: request.payload.lng,
             img: request.payload.img,
+            categoriesMusic: request.payload.categoriesMusic,
           };
           if(request.payload.file!=null){
             const file = request.payload.file;
@@ -83,8 +84,6 @@ export const pubApi = {
     },
     handler: async function (request, h) {
         try {
-          console.log("update pub api: #################################################");
-          console.log(request.payload);
           const oldPub = await db.pubStore.getPubById(request.params.pubid);
           if(!oldPub){
             return Boom.notFound("No pub with this id");
@@ -96,6 +95,7 @@ export const pubApi = {
             lat: request.payload.lat,
             lng: request.payload.lng,
             img: request.payload.img,
+            categoriesMusic: request.payload.categoriesMusic,
           };
           if(request.payload.file!=null){
             const file = request.payload.file;
