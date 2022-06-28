@@ -36,9 +36,18 @@ export const webRoutes = [
   { method: "POST", path: "/publist/{id}/uploadimage", config: publistController.uploadImage },
 
   //{ method: "GET", path: "/pub/{id}/editpub/{pubid}", config: pubController.index },
-  { method: "POST", path: "/pub/{id}/updatepub/{pubid}", config: pubController.update },
-  { method: "POST", path: "/pub/{id}/uploadimage/{pubid}", config: pubController.uploadImage },
+  //{ method: "POST", path: "/pub/{id}/updatepub/{pubid}", config: pubController.update },
+  //{ method: "POST", path: "/pub/{id}/uploadimage/{pubid}", config: pubController.uploadImage },
   { method: "GET", path: "/pubs", config: pubController.getPubs },
+  { method: "GET", path: "/pub/edit/{pubid}", config: pubController.edit },
+  { method: "POST", path: "/pub/update/{pubid}", config: pubController.update },
+  { method: "POST", path: "/pub/{pubid}/image/upload", config: pubController.uploadImage },
+  { method: "GET", path: "/pub/{pubid}/image/edit", config: pubController.editImage },
+  { method: "GET", path: "/pub/{pubid}/image/delete", config: pubController.deleteImage },
+
+  // /pub/62b8aadfbeee1f35aa059319/image/edit
+
+  // /pub/{{pub._id}}/image/upload
 
   { method: "GET", path: "/category/music", config: categoryController.music.index },
   { method: "POST", path: "/category/music/add", config: categoryController.music.addCategory },
@@ -46,6 +55,7 @@ export const webRoutes = [
   { method: "GET", path: "/category/music/deleteAll", config: categoryController.music.deleteCategories },
   { method: "GET", path: "/category/music/edit/{id}", config: categoryController.music.editCategory },
   { method: "POST", path: "/category/music/update/{id}", config: categoryController.music.updateCategory },
+
 
   {
     method: "GET",

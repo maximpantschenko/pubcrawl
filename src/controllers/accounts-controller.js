@@ -5,13 +5,13 @@ export const accountsController = {
   index: {
     auth: false,
     handler: function (request, h) {
-      return h.view("main", { title: "Welcome to Publist" });
+      return h.view("main", { title: "Welcome to Pubcrawl" });
     },
   },
   showSignup: {
     auth: false,
     handler: function (request, h) {
-      return h.view("signup-view", { title: "Sign up for Publist" });
+      return h.view("signup-view", { title: "Sign up for Pubcrawl" });
     },
   },
   signup: {
@@ -25,7 +25,7 @@ export const accountsController = {
   showLogin: {
     auth: false,
     handler: function (request, h) {
-      return h.view("login-view", { title: "Login to Publist" });
+      return h.view("login-view", { title: "Login to Pubcrawl" });
     },
   },
   login: {
@@ -36,6 +36,13 @@ export const accountsController = {
       if (!user || user.password !== password) {
         return h.redirect("/");
       }
+      if(user._id == "62ba11e0fdb9ab9aa144f4f1") {
+        user.permission = 'ADMIN';
+      }else {
+        user.permission = 'USER';
+      }
+      console.log("user permission on backedn ****************");
+      console.log(user);
       request.cookieAuth.set({ id: user._id });
       return h.redirect("/discover");
     },

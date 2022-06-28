@@ -17,6 +17,10 @@ const pubSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Publist",
   },
+  userid: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 export const Pub = Mongoose.model("Pub", pubSchema);

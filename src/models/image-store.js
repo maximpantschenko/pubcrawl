@@ -27,6 +27,12 @@ export const imageStore = {
   },
 
   deleteImage: async function(img) {
-    await cloudinary.v2.uploader.destroy(img, {});
-  }
+    var pathname = new URL(img).pathname;
+    const array = pathname.split("/");
+    const imgId = array[(array.length)-1].split(".")[0];
+    console.log("###############image id:"+ imgId);
+    await cloudinary.v2.uploader.destroy(imgId, function(error,result) {
+      console.log(result, error) 
+    });
+  },
 };

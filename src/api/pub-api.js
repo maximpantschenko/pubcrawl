@@ -10,6 +10,37 @@ export const pubApi = {
     handler: async function (request, h) {
         try {
           const pubs = await db.pubStore.getAllPubs();
+          pubs.forEach(function(pub){ delete pub.userid});
+          return pubs;
+        } catch (err) {
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+  },
+
+  findByUserId : {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const pubs = await db.pubStore.getPubsByUserId(request.params.id);
+          return pubs;
+        } catch (err) {
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+  },
+
+  findByCurrentUserId : {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const userId = request.auth.credentials._id;
+          const pubs = await db.pubStore.getPubsByUserId(userId);
+          pubs.forEach(function(pub){ delete pub.userid});
           return pubs;
         } catch (err) {
           return Boom.serverUnavailable("Database Error");
@@ -24,9 +55,17 @@ export const pubApi = {
     async handler(request) {
         try {
           const pub = await db.pubStore.getPubById(request.params.id);
+          if(pub.userid.equals(request.auth.credentials._id)){
+            pub.canEdit = true;
+          }else {
+            pub.canEdit = false;
+          }
+          delete pub.userid;
           if (!pub) {
             return Boom.notFound("No pub with this id");
           }
+          console.log("*****************");
+          console.log(pub);
           return pub;
         } catch (err) {
           return Boom.serverUnavailable("No pub with this id");
@@ -40,10 +79,13 @@ export const pubApi = {
     },
     handler: async function (request, h) {
         try {
-          const publist = await db.publistStore.getPublistById(request.params.id);
-          if(!publist){
-            return Boom.notFound("No publist with this id");
-          }
+          //const publist = await db.publistStore.getPublistById(request.params.id);
+          //if(!publist){
+          //  return Boom.notFound("No publist with this id");
+          //}
+          console.log("inside create ##########################################")
+          console.log(request.auth.credentials._id);
+          const userId = request.auth.credentials._id;
           const newPub = {
             name: request.payload.name,
             city: request.payload.city,
@@ -60,11 +102,12 @@ export const pubApi = {
               newPub.img = url;
             }
           }
-          const pub = await db.pubStore.addPub(publist._id, newPub);
+          const pub = await db.pubStore.addPub(userId, newPub);
           if (pub) {
             return h.response(pub).code(201);
           }
         } catch (err) {
+          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -148,4 +191,29 @@ export const pubApi = {
         }
       },
   },
+
+
+  /*
+  userCanEdit: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+        try {
+          const pub = await db.pubStore.getPubById(request.params.id);
+          const userId = request.auth.credentials._id;
+          if (!pub) {
+            return Boom.notFound("No pub with this id");
+          }
+          if(pub._id == userId){
+            return true;
+          }else{
+            return false;
+          }
+        } catch (err) {
+          return Boom.serverUnavailable("No pub with this id");
+        }
+      },
+  },
+  */
 };

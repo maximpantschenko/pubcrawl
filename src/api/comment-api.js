@@ -9,7 +9,27 @@ export const commentApi = {
     handler: async function (request, h) {
         try {
           const comments = await db.commentStore.getAllComments();
-          return comments;
+          const newComments = [];
+          for(let i=0; i<comments.length; i++){
+            const comment = comments[i];
+            const userDetails = await db.userStore.getUserById(comment.userid);
+            const newComment = {
+                _id: comment._id,
+                text: comment.text,
+                likes: comment.likes,
+                pubid: comment.pubid,
+                date: comment.date,
+                firstName: userDetails.firstName,
+                lastName: userDetails.lastName,
+                email: userDetails.email,
+            };
+            if(comment.userid.equals(request.auth.credentials._id)){
+                newComment.canEdit = true;
+            }else {
+                newComment.canEdit = false;
+            }
+            newComments.push(newComment);
+          }
         } catch (err) {
           return Boom.serverUnavailable("Database Error");
         }
@@ -24,8 +44,30 @@ export const commentApi = {
         try {
           console.log("inside pub api find by pub id");
           const comments = await db.commentStore.getCommentsByPubId(request.params.id);
+          const newComments = [];
+          for(let i=0; i<comments.length; i++){
+            const comment = comments[i];
+            const userDetails = await db.userStore.getUserById(comment.userid);
+            const newComment = {
+                _id: comment._id,
+                text: comment.text,
+                likes: comment.likes,
+                pubid: comment.pubid,
+                date: comment.date,
+                firstName: userDetails.firstName,
+                lastName: userDetails.lastName,
+                email: userDetails.email,
+            };
+            if(comment.userid.equals(request.auth.credentials._id)){
+                newComment.canEdit = true;
+            }else {
+                newComment.canEdit = false;
+            }
+            newComments.push(newComment);
+          }
           console.log("comment api");
-          return comments;
+          console.log(newComments);
+          return newComments;
         } catch (err) {
           return Boom.serverUnavailable("No pub with this id");
         }
@@ -44,7 +86,23 @@ export const commentApi = {
           if (!comment) {
             return Boom.notFound("No comment with this id");
           }
-          return comment;
+          const userDetails = await db.userStore.getUserById(comment.userid);
+          const newComment = {
+                _id: comment._id,
+                text: comment.text,
+                likes: comment.likes,
+                pubid: comment.pubid,
+                date: comment.date,
+                firstName: userDetails.firstName,
+                lastName: userDetails.lastName,
+                email: userDetails.email,
+          }
+          if(comment.userid.equals(request.auth.credentials._id)){
+            newComment.canEdit = true;
+          }else {
+            newComment.canEdit = false;
+          }
+          return newComment;
         } catch (err) {
           return Boom.serverUnavailable("No comment with this id");
         }
@@ -63,7 +121,7 @@ export const commentApi = {
             //date: request.payload.date,
             //likes: request.payload.likes,
             pubid: request.payload.pubid,
-            userid: request.payload.userid,
+            userid: request.auth.credentials._id,
           };
           console.log("newComment");
           console.log(newComment);
@@ -98,7 +156,6 @@ export const commentApi = {
             date: request.payload.date,
             likes: request.payload.likes,
             pubid: request.payload.pubid,
-            userid: request.payload.userid,
           };
           const updatedComment = await db.pubStore.updateComment(oldComment, newComment);
           return updatedComment;

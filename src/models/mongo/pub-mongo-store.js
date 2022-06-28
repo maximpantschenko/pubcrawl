@@ -8,11 +8,17 @@ export const pubMongoStore = {
     return pubs;
   },
 
-  async addPub(publistId, pub) {
-    pub.publistid = publistId;
+  async addPub(userId, pub) {
+    //pub.publistid = publistId;
+    pub.userid = userId;
     const newPub = new Pub(pub);
     const pubObj = await newPub.save();
     return this.getPubById(pubObj._id);
+  },
+
+  async getPubsByUserId(id){
+    const pubs = await Pub.find( { userid: {$in: id } } );
+    return pubs;
   },
 
   async getPubsByPublistId(id) {

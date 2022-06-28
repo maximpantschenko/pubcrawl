@@ -28,7 +28,33 @@ export const pubController = {
               title: "Pubs",
               pubs: pubs,
           };
+          console.log("user data sesseion ******************");
+          console.log(request.auth.credentials);
           return h.view("pubs-view", viewData);
+      },
+    },
+
+    edit: {
+      handler: async function(request, h){
+        console.log("inside edit pubcontroller");
+        console.log(request.params.pubid);
+        const pub = await db.pubStore.getPubById(request.params.pubid);
+        const viewData = {
+          title: "Edit Pub",
+          pub: pub,
+        };
+        return h.view("pub-edit", viewData);
+      },
+    },
+
+    editImage: {
+      handler: async function(request, h){
+        const pub = await db.pubStore.getPubById(request.params.pubid);
+        const viewData = {
+          title: "Edit Image",
+          pub: pub,
+        };
+        return h.view("image-edit", viewData);
       },
     },
 
@@ -43,14 +69,14 @@ export const pubController = {
                 img: request.payload.img,
             };
             await db.pubStore.updatePub(request.params.pubid, newPub);
-            return h.redirect(`/publist/${request.params.id}`);
+            return h.redirect(`/pubs`);
         },
     },
 
     uploadImage: {
         handler: async function(request, h) {
           try {
-            const publist = await db.publistStore.getPublistById(request.params.id);
+            //const publist = await db.publistStore.getPublistById(request.params.id);
             const pub = await db.pubStore.getPubById(request.params.pubid);
             const file = request.payload.imagefile;
             console.log("upload image pub controller");
@@ -60,10 +86,10 @@ export const pubController = {
               pub.img = url;
               db.pubStore.updatePub(request.params.pubid, pub);
             }
-            return h.redirect(`/publist/${publist._id}`);
+            return h.redirect(`/pub/edit/${pub._id}`);
           } catch (err) {
             console.log(err);
-            return h.redirect(`/publist/${publist._id}`);
+            return h.redirect(`/pub/${pub._id}/image/edit`);
           }
         },
         payload: {
@@ -73,4 +99,14 @@ export const pubController = {
             parse: true
         },
     },
+
+    deleteImage: {
+      handler: async function(request, h){
+        const pub = await db.pubStore.getPubById(request.params.pubid);
+        await imageStore.deleteImage(pub.img);
+        pub.img = "";
+        await db.pubStore.updatePub(request.params.pubid, pub);
+        return h.redirect(`/pub/edit/${pub._id}`);
+      }
+    }
 };
