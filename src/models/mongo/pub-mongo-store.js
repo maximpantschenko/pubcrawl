@@ -1,6 +1,7 @@
 import { Pub } from "./pub.js";
 import { Publist } from "./publist.js";
 import { categoryMusicMongoStore } from "./category-music-mongo-store.js";
+import { db } from "../db.js";
 
 export const pubMongoStore = {
   async getAllPubs() {
@@ -23,6 +24,32 @@ export const pubMongoStore = {
 
   async getPubsByPublistId(id) {
     const pubs = await Pub.find({ publistid: id }).lean();
+    return pubs;
+  },
+  
+  async getPubsByName(string){
+    const pubs = await Pub.find({name : {$regex : string, $options : 'i'}});
+    return pubs;
+  },
+
+  async getPubsByCity(string){
+    const pubs = await Pub.find({city : {$regex : string, $options : 'i'}});
+    return pubs;
+  },
+
+  async getPubsByCountry(string){
+    const pubs = await Pub.find({country : {$regex : string, $options : 'i'}});
+    return pubs;
+  },
+
+  async getPubsByNameCityCountry(name,city,country){
+    const pubs = await Pub.find(
+      {$and:[
+        {name : {$regex : name, $options : 'i'}},
+        {city : {$regex : city, $options : 'i'}},
+        {country : {$regex : country, $options : 'i'}}
+    ]}
+    );
     return pubs;
   },
 

@@ -25,6 +25,8 @@ export const apiRoutes = [
     { method: "POST", path: "/api/updatepub/{pubid}", config: pubApi.update},
     { method: "GET", path: "/api/pubs/user/{id}", config: pubApi.findByUserId },
     { method: "GET", path: "/api/pubs/currentuser", config: pubApi.findByCurrentUserId },
+    { method: "GET", path: "/api/pubs/searchname/{string}", config: pubApi.searchName },
+    { method: "GET", path: "/api/pubs/search/{string}", config: pubApi.search },
 
     { method: "GET", path: "/api/getCategoriesMusic/", config: categoriesApi.getCategoriesMusic },
     //{ method: "POST", path: "/api/getCategoriesMusicByIds", config: categoriesApi.getCategoriesMusicByIds },

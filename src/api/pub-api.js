@@ -13,6 +13,7 @@ export const pubApi = {
           pubs.forEach(function(pub){ delete pub.userid});
           return pubs;
         } catch (err) {
+          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -27,6 +28,7 @@ export const pubApi = {
           const pubs = await db.pubStore.getPubsByUserId(request.params.id);
           return pubs;
         } catch (err) {
+          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -43,6 +45,7 @@ export const pubApi = {
           pubs.forEach(function(pub){ delete pub.userid});
           return pubs;
         } catch (err) {
+          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -68,10 +71,57 @@ export const pubApi = {
           console.log(pub);
           return pub;
         } catch (err) {
+          console.log(err);
           return Boom.serverUnavailable("No pub with this id");
         }
       },
   },
+
+  searchName: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const pubs = await db.pubStore.getPubsByString(request.params.string);
+          pubs.forEach(function(pub){ delete pub.userid});
+          return pubs;
+        } catch (err) {
+          console.log(err);
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+  },
+
+  //{ method: "GET", path: "/api/pubs/search/{name}/{city}/{country}", config: pubApi.search },
+  search: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const array = request.params.string.split("&");
+          console.log(array);
+          const sendArray = ["","",""];
+          for(var i=0; i<array.length; i++){
+            sendArray[i] = array[i];
+          }
+          //const pubs = [];
+          //pubs.push(await db.pubStore.getPubsByName(request.params.name));
+          //pubs.push(await db.pubStore.getPubsByCity(request.params.city));
+          //pubs.push(await db.pubStore.getPubsByCountry(request.params.country));
+          //pubs.forEach(function(pub){ delete pub.userid});
+          const pubs = await db.pubStore.getPubsByNameCityCountry(sendArray[0], sendArray[1], sendArray[2]);
+          console.log("pubs:");
+          console.log(pubs);
+          return pubs;
+        } catch (err) {
+          console.log(err);
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+  },
+
 
   create: {
     auth: {
