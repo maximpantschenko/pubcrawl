@@ -14,8 +14,12 @@ export const webRoutes = [
   { method: "GET", path: "/logout", config: accountsController.logout },
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
+  { method: "GET", path: "/account", config: accountsController.account },
+  { method: "GET", path: "/account/edit", config: accountsController.edit },
+  { method: "POST", path: "/account/update", config: accountsController.updateUser },
 
-  { method: "GET", path: "/dashboard", config: adminController.index },
+  { method: "GET", path: "/dashboard", config: accountsController.dashboard },
+  { method: "GET", path: "/dashboard/admin", config: adminController.dashboardAdmin },
   
   { method: "GET", path: "/users", config: adminController.getUsers },
   { method: "GET", path: "/users/delete/{id}", config: adminController.deleteUser },

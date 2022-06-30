@@ -27,9 +27,8 @@ export const pubController = {
           const viewData = {
               title: "Pubs",
               pubs: pubs,
+              admin: request.auth.credentials.admin,
           };
-          console.log("user data sesseion ******************");
-          console.log(request.auth.credentials);
           return h.view("pubs-view", viewData);
       },
     },
@@ -42,6 +41,7 @@ export const pubController = {
         const viewData = {
           title: "Edit Pub",
           pub: pub,
+          admin: request.auth.credentials.admin,
         };
         return h.view("pub-edit", viewData);
       },
@@ -53,6 +53,7 @@ export const pubController = {
         const viewData = {
           title: "Edit Image",
           pub: pub,
+          admin: request.auth.credentials.admin,
         };
         return h.view("image-edit", viewData);
       },
@@ -62,6 +63,7 @@ export const pubController = {
         handler: async function (request, h){
             const newPub = {
                 name: request.payload.name,
+                description: request.payload.description,
                 city: request.payload.city,
                 country: request.payload.country,
                 lat: request.payload.lat,

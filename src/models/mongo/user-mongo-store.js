@@ -2,8 +2,13 @@ import { User } from "./user.js";
 
 export const userMongoStore = {
   async getAllUsers() {
-    const users = await User.find().lean();
+    const users = await User.find().sort({"admin":-1}).lean();
     return users;
+  },
+
+  async countUsers(){
+    const numberUsers = await User.countDocuments({});
+    return numberUsers;
   },
 
   async getUserById(id) {
@@ -44,6 +49,8 @@ export const userMongoStore = {
     user.lastName = updatedUser.lastName;
     user.email = updatedUser.email;
     user.password = updatedUser.password;
+    user.admin = (updatedUser.admin === 'true');
+    console.log(user);
     await user.save();
     return user;
   },

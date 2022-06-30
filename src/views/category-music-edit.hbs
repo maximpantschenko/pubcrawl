@@ -1,5 +1,6 @@
 {{> menu}}
 
+{{#if admin}}
 <div class="columns is-desktop">
     <div class="column is-one-quarter">
         {{> dashboard-menu active="a-category-music"}}
@@ -31,3 +32,6 @@
         </section>
     </div>
 </div>
+{{else}}
+    {{> page-not-found}}
+{{/if}}

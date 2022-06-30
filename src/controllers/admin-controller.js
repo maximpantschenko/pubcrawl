@@ -5,9 +5,26 @@ export const adminController = {
             handler: async function(request, h){
                 //const categoriesMusic = await db.categoryMusicStore.getAllCategories();
                 const viewData = {
-                    title: "Dashboard"
+                    title: "Dashboard",
+                    admin: request.auth.credentials.admin,
                 };
                 return h.view("dashboard-view", viewData);
+            },
+        },
+
+        dashboardAdmin: {
+            handler: async function(request, h){
+                const numberUsers = await db.userStore.countUsers({});
+                const numberCategories = await db.categoryMusicStore.countCategories();
+                const numberPubs = await db.pubStore.countPubs({});
+                const viewData = {
+                    title: "Administration",
+                    numberUsers: numberUsers,
+                    numberCategories: numberCategories,
+                    numberPubs: numberPubs,
+                    admin: request.auth.credentials.admin,
+                };
+                return h.view("dashboard-admin-view", viewData);
             },
         },
 
@@ -19,6 +36,7 @@ export const adminController = {
                 const viewData = {
                     title: "Users",
                     users: users,
+                    admin: request.auth.credentials.admin,
                 };
                 return h.view("users-view", viewData);
             },
@@ -26,7 +44,7 @@ export const adminController = {
 
         deleteUser: {
             handler: async function(request, h){
-                await db.userStore.deleteUserById(request.params.id);
+                if(request.auth.credentials.admin) await db.userStore.deleteUserById(request.params.id);
                 return h.redirect(`/users`);
             },
         },
@@ -37,8 +55,9 @@ export const adminController = {
                 const viewData = {
                     title: "Edit User",
                     user: user,
+                    admin: request.auth.credentials.admin,
                 }
-                return h.view("user-edit", viewData);
+                return h.view("user-edit-admin", viewData);
             },
         },
 

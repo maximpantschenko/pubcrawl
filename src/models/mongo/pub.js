@@ -4,6 +4,7 @@ const { Schema } = Mongoose;
 
 const pubSchema = new Schema({
   name: String,
+  description: String,
   city: String,
   country: String,
   lat: String,

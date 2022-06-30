@@ -4,6 +4,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>E-Mail</th>
+            <th>Role</th>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
@@ -21,14 +22,25 @@
                     {{email}}
                 </td>
                 <td>
+                    {{#if admin}}
+                        Admin
+                    {{else}}
+                        User
+                    {{/if}}
+                </td>
+                <td>
                     <a href="/users/edit/{{_id}}" class="ui icon button">
                         <i class="fas fa-edit"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="/users/delete/{{_id}}" class="ui icon button is-danger">
-                        <i class="fas fa-trash"></i>
-                    </a>
+                    {{#if admin}}
+                        &nbsp;
+                    {{else}}
+                        <a href="/users/delete/{{_id}}" class="ui icon button is-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    {{/if}}
                 </td>
             </tr>
         {{/each}}

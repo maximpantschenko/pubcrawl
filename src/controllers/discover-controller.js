@@ -8,6 +8,7 @@ export const discoverController = {
             const viewData = {
                 title: "Publist",
                 publist: publist,
+                admin: request.auth.credentials.admin,
             };
             return h.view("discover-view", viewData);
         },

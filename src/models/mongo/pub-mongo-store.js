@@ -9,6 +9,11 @@ export const pubMongoStore = {
     return pubs;
   },
 
+  async countPubs(){
+    const numberPubs = await Pub.countDocuments({});
+    return numberPubs;
+  },
+
   async addPub(userId, pub) {
     //pub.publistid = publistId;
     pub.userid = userId;

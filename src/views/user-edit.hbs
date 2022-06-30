@@ -16,7 +16,7 @@
                         {{subtitle}}
                     </h2>
                 </div>
-                <form action="/users/update/{{user._id}}" class="box" method="POST">
+                <form action="/account/update" class="box" method="POST">
                   <label class="label">Name</label>
                   <div class="field is-horizontal">
                     <div class="field-body">
@@ -51,7 +51,7 @@
                       <button type="submit" class="button is-link">Submit</button>
                     </div>
                     <div class="control">
-                      <a href="/users" class="button is-link is-light">Cancel</a>
+                      <a onclick="history.back()" class="button is-link is-light">Cancel</a>
                     </div>
                   </div>
                 </form>

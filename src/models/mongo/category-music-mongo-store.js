@@ -6,6 +6,11 @@ export const categoryMusicMongoStore = {
     return categories;
   },
 
+  async countCategories(){
+    const numberCategories = await CategoryMusic.countDocuments({});
+    return numberCategories;
+  },
+
   async addCategory(category) {
     const newCategory = new CategoryMusic(category);
     const categoryObj = await newCategory.save();

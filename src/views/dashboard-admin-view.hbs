@@ -1,0 +1,89 @@
+{{> menu}}
+
+<div class="columns is-desktop">
+    <div class="column is-narrow">
+        <section class="section">
+            <div class="box" style="width: 300px;">
+                {{> dashboard-menu active="a-dashboard-admin"}}
+            </div>
+        </section>
+    </div>
+    <div class="column">
+        <section class="section">
+                <div class="box">
+                    <h1 class="title">{{title}}</h1>
+                    <h2 class="subtitle">
+                        {{subtitle}}
+                    </h2>
+                </div>
+                    <div class="columns">
+                        <div class="column is-one-third">
+                            <a href="/users">
+                                <div class="card">
+                                    <div class="card-content columns">
+                                        <div class="column is-four-fifths">
+                                            <span class="icon-text">
+                                                    <span class="icon">
+                                                        <i class="fas fa-user"></i>
+                                                    </span>
+                                                    <span>User</span>
+                                            </span>
+                                        </div>
+                                        <div class="column">
+                                            <span>
+                                                <span style="text-aling: right">{{numberUsers}}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="column is-one-third">
+                            <a href="/pubs">
+                                <div class="card">
+                                    <div class="card-content columns">
+                                        <div class="column is-four-fifths">
+                                            <span class="icon-text">
+                                                    <span class="icon">
+                                                        <i class="fa-solid fa-beer-mug-empty"></i>
+                                                    </span>
+                                                    <span>Pubs</span>
+                                            </span>
+                                        </div>
+                                        <div class="column">
+                                            <span>
+                                                <span style="text-aling: right">{{numberPubs}}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="column is-one-third">
+                            <a href="/category/music">
+                                <div class="card">
+                                    <div class="card-content columns">
+                                        <div class="column is-four-fifths">
+                                            <span class="icon-text">
+                                                    <span class="icon">
+                                                        <i class="fa-solid fa-list"></i>
+                                                    </span>
+                                                    <span>Categories</span>
+                                            </span>
+                                        </div>
+                                        <div class="column">
+                                            <span>
+                                                <span style="text-aling: right">{{numberCategories}}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box">
+
+                    </div>
+            </section>
+    </div>
+</div>

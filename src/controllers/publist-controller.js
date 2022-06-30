@@ -18,6 +18,7 @@ export const publistController = {
             const publist = await db.publistStore.getPublistById(request.params.id);
             const newPub = {
                 name: request.payload.name,
+                description: request.payload.description,
                 city: request.payload.city,
                 country: request.payload.country,
                 lat: request.payload.lat,

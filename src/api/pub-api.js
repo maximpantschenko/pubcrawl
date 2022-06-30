@@ -138,6 +138,7 @@ export const pubApi = {
           const userId = request.auth.credentials._id;
           const newPub = {
             name: request.payload.name,
+            description: request.payload.description,
             city: request.payload.city,
             country: request.payload.country,
             lat: request.payload.lat,
@@ -181,6 +182,7 @@ export const pubApi = {
           }
           const newPub = {
             name: request.payload.name,
+            description: request.payload.description,
             city: request.payload.city,
             country: request.payload.country,
             lat: request.payload.lat,

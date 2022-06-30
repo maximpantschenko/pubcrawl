@@ -8,6 +8,7 @@ export const categoryController = {
                 const viewData = {
                     title: "Categories Music",
                     categoriesMusic: categoriesMusic,
+                    admin: request.auth.credentials.admin,
                 };
                 return h.view("category-music-view", viewData);
             },
@@ -16,7 +17,7 @@ export const categoryController = {
         addCategory: {
             handler: async function (request, h){
                 const newCategory = {
-                    name: request.payload.name
+                    name: request.payload.name,
                 };
                 await db.categoryMusicStore.addCategory(newCategory);
                 return h.redirect(`/category/music`);
@@ -44,6 +45,7 @@ export const categoryController = {
                 const viewData = {
                     title: "Edit Category Music",
                     categoryMusic: categoryMusic,
+                    admin: request.auth.credentials.admin,
                 }
                 return h.view("category-music-edit", viewData);
             },
