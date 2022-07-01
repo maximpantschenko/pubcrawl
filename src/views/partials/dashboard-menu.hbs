@@ -1,0 +1,32 @@
+<aside id="dashboard-menu" class="menu">
+  <p class="menu-label">
+    General
+  </p>
+  <ul class="menu-list">
+    <li><a id="a-dashboard" href="/dashboard">Dashboard</a></li>
+    <li><a id="a-account" href="/account">Account</a></li>
+  </ul>
+  {{#if admin}}
+    <p class="menu-label">
+      Administration
+    </p>
+    <ul class="menu-list">
+      <li><a id="a-dashboard-admin" href="/dashboard/admin">Dashboard</a></li>
+      <li><a id="a-users" href="/users">Users</a></li>
+      <li><a id="a-pubs" href="/pubs">Pubs</a></li>
+      <li>
+        <a class="is-active">Manage Categories</a>
+        <ul>
+          <li><a id="a-category-music" href="/category/music">Music</a></li>
+        </ul>
+      </li>
+    </ul>
+  {{/if}}
+</aside>
+
+<script>
+  if(document.getElementById("{{active}}") !=null){
+    document.querySelector("#dashboard-menu .is-active").classList.remove("is-active");
+    document.getElementById("{{active}}").classList.add("is-active");
+  }
+</script>

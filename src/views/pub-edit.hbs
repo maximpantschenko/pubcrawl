@@ -1,0 +1,131 @@
+{{> menu}}
+
+<div class="columns is-desktop">
+    <div class="column is-narrow">
+        <section class="section">
+            <div class="box" style="width: 300px;">
+                {{> dashboard-menu active="a-pubs"}}
+            </div>
+        </section>
+    </div>
+    <div class="column">
+        <section class="section">
+                <div class="box">
+                    <h1 class="title">{{title}}</h1>
+                    <h2 class="subtitle">
+                        {{subtitle}}
+                    </h2>
+                </div>
+                <form action="/pub/update/{{pub._id}}" class="box" method="POST">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image">
+                                <img src="{{pub.img}}"alt="Image of Pub">
+                            </figure>
+                        </div>
+                        <p class="control">
+                            <a href="/pub/{{pub._id}}/image/edit" class="button is-light">Edit Image</a>
+                        </p>
+                    </div>
+
+                    <input class="input" type="text" name="img" style="display: none;" value="{{pub.img}}">
+
+                    <label>Enter Pub Details:</label>
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter Name" name="name" value="{{pub.name}}">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Description</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter Description" name="description" value="{{pub.description}}">
+                        </div>
+                    </div>
+                
+                    <div class="field">
+                        <label class="label">City</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter City" name="city" value="{{pub.city}}">
+                        </div>
+                    </div>
+                
+                    <div class="field">
+                        <label class="label">Country</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Enter Country" name="country" value="{{pub.country}}">
+                        </div>
+                    </div>
+
+                    <!--
+                    <div class="field">
+                    <label class="label">Category Music</label>
+                    <div class="control"> 
+                        <div class="category-music-dropdown dropdown">
+                        <div class="dropdown-trigger">
+                            <span class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+                            <span>Music Category</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                            </span>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                            <div class="dropdown-content" style="overflow:scroll;height:200px">
+                            <table class="table category-music-table is-fullwidth">
+                                <tbody>
+                                {#each categoriesMusicSelectable as music}
+                                    <tr>
+                                    <td>{music.name}</td>
+                                    <td>
+                                        <span class="button category-music-item is-small is-primary" data-id="{music._id}">
+                                        <span class="icon is-small">
+                                            <i class="category-music-icon fas fa-plus"></i>
+                                        </span>
+                                        </span>
+                                    </td>
+                                    </tr>
+                                {/each}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    -->
+                
+                    <div class="field">
+                    <label class="label">Latitude</label>
+                    <div class="control">
+                        <input class="input input-lat" type="text" placeholder="Latitude" name="lat" value="{{pub.lat}}">
+                    </div>
+                    </div>
+                
+                    <div class="field">
+                    <label class="label">Longitude</label>
+                    <div class="control">
+                        <input class="input input-lng" type="text" placeholder="Longitude" name="lng" value="{{pub.lng}}">
+                    </div>
+                    </div>
+                
+                    
+
+                    <div class="field is-grouped is-grouped-right">
+                    <p class="control">
+                        <button class="button is-light">Cancel</button>
+                    </p>
+                    <p class="control">
+                        <button class="button is-danger">Delete</button>
+                    </p>
+                    <p class="control">
+                        <button type="submit" class="button is-primary">Save</button>
+                    </p>
+                    </div>
+
+                </form>
+            </section>
+    </div>
+</div>

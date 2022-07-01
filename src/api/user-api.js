@@ -34,6 +34,23 @@ export const userApi = {
     },
   },
 
+  current:{
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const user = await db.userStore.getUserById(request.auth.credentials._id);
+        if (!user) {
+          return Boom.notFound("No User with this id");
+        }
+        return user;
+      } catch (err) {
+        return Boom.serverUnavailable("No User with this id");
+      }
+    },
+  },
+
   create: {
     auth: false,
     handler: async function (request, h) {

@@ -1,0 +1,44 @@
+<table class="table is-fullwidth">
+    <thead>
+        <tr>
+            <th>Pub</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each pubs}}
+            <tr>
+                <td>
+                    {{name}}
+                </td>
+                <td>
+                    {{city}}
+                </td>
+                <td>
+                    {{country}}
+                </td>
+                <td>
+                    {{lat}}
+                </td>
+                <td>
+                    {{lng}}
+                </td>
+                <td>
+                    <a href="/pub/edit/{{_id}}" class="ui icon button">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="/pub/delete/{{_id}}" class="ui icon button is-danger">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

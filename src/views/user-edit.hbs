@@ -1,0 +1,60 @@
+{{> menu}}
+
+<div class="columns is-desktop">
+    <div class="column is-narrow">
+        <section class="section">
+            <div class="box" style="width: 300px;">
+                {{> dashboard-menu active="a-users"}}
+            </div>
+        </section>
+    </div>
+    <div class="column">
+        <section class="section">
+                <div class="box">
+                    <h1 class="title">{{title}}</h1>
+                    <h2 class="subtitle">
+                        {{subtitle}}
+                    </h2>
+                </div>
+                <form action="/account/update" class="box" method="POST">
+                  <label class="label">Name</label>
+                  <div class="field is-horizontal">
+                    <div class="field-body">
+                      <div class="field">
+                        <input class="input" type="text" placeholder="Enter first name" name="firstName" value="{{user.firstName}}">
+                      </div>
+                      <div class="field">
+                        <input class="input" type="text" placeholder="Enter last name" name="lastName" value="{{user.lastName}}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Email</label>
+                    <p class="control has-icons-left">
+                      <input class="input" type="text" placeholder="Enter email" name="email" value="{{user.email}}">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <div class="field">
+                    <label class="label">Password</label> 
+                    <p class="control has-icons-left">
+                      <input class="input" type="password" placeholder="Enter Password" name="password" value="{{user.password}}">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <div class="field is-grouped">
+                    <div class="control">
+                      <button type="submit" class="button is-link">Submit</button>
+                    </div>
+                    <div class="control">
+                      <a onclick="history.back()" class="button is-link is-light">Cancel</a>
+                    </div>
+                  </div>
+                </form>
+            </section>
+    </div>
+</div>

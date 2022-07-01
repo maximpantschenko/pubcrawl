@@ -5,13 +5,59 @@ export const accountsController = {
   index: {
     auth: false,
     handler: function (request, h) {
-      return h.view("main", { title: "Welcome to Publist" });
+      return h.view("main", { title: "Welcome to Pubcrawl" });
     },
   },
+
+  dashboard: {
+    handler: async function (request, h) {
+      const user = await db.userStore.getUserById(request.auth.credentials._id);
+      const viewData = {
+            title: "Dashboard",
+            user: user,
+            admin: request.auth.credentials.admin,
+      };
+      return h.view("dashboard-view", viewData);
+    },
+  },
+
+  account: {
+    handler: async function (request, h) {
+      const user = await db.userStore.getUserById(request.auth.credentials._id);
+      const viewData = {
+            title: "My Account",
+            user: user,
+            admin: request.auth.credentials.admin,
+      };
+      return h.view("account-view", viewData);
+    },
+  },
+
+  edit: {
+    handler: async function (request, h) {
+      const user = await db.userStore.getUserById(request.auth.credentials._id);
+      const viewData = {
+            title: "Edit Account",
+            user: user,
+            admin: request.auth.credentials.admin,
+      };
+      return h.view("user-edit", viewData);
+    },
+  },
+
+  updateUser: {
+    handler : async function(request, h){
+        const user = request.payload;
+        const id = request.auth.credentials._id;
+        await db.userStore.updateUser(id, user);
+        return h.redirect(`/account`);
+    },
+  },
+
   showSignup: {
     auth: false,
     handler: function (request, h) {
-      return h.view("signup-view", { title: "Sign up for Publist" });
+      return h.view("signup-view", { title: "Sign up for Pubcrawl" });
     },
   },
   signup: {
@@ -25,7 +71,7 @@ export const accountsController = {
   showLogin: {
     auth: false,
     handler: function (request, h) {
-      return h.view("login-view", { title: "Login to Publist" });
+      return h.view("login-view", { title: "Login to Pubcrawl" });
     },
   },
   login: {
@@ -37,9 +83,10 @@ export const accountsController = {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
-      return h.redirect("/discover");
+      return h.redirect("/dashboard");
     },
   },
+
   logout: {
     auth: false,
     handler: function (request, h) {

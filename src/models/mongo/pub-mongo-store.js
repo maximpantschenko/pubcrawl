@@ -1,4 +1,6 @@
 import { Pub } from "./pub.js";
+import { categoryMusicMongoStore } from "./category-music-mongo-store.js";
+import { db } from "../db.js";
 
 export const pubMongoStore = {
   async getAllPubs() {
@@ -6,21 +8,60 @@ export const pubMongoStore = {
     return pubs;
   },
 
-  async addPub(publistId, pub) {
-    pub.publistid = publistId;
+  async countPubs(){
+    const numberPubs = await Pub.countDocuments({});
+    return numberPubs;
+  },
+
+  async addPub(userId, pub) {
+    pub.userid = userId;
     const newPub = new Pub(pub);
     const pubObj = await newPub.save();
     return this.getPubById(pubObj._id);
   },
 
-  async getPubsByPublistId(id) {
-    const pubs = await Pub.find({ publistid: id }).lean();
+  async getPubsByUserId(id){
+    const pubs = await Pub.find( { userid: {$in: id } } );
+    return pubs;
+  },
+  
+  async getPubsByName(string){
+    const pubs = await Pub.find({name : {$regex : string, $options : 'i'}});
+    return pubs;
+  },
+
+  async getPubsByCity(string){
+    const pubs = await Pub.find({city : {$regex : string, $options : 'i'}});
+    return pubs;
+  },
+
+  async getPubsByCountry(string){
+    const pubs = await Pub.find({country : {$regex : string, $options : 'i'}});
+    return pubs;
+  },
+
+  async getPubsByNameCityCountry(name,city,country){
+    const pubs = await Pub.find(
+      {$and:[
+        {name : {$regex : name, $options : 'i'}},
+        {city : {$regex : city, $options : 'i'}},
+        {country : {$regex : country, $options : 'i'}}
+    ]}
+    );
     return pubs;
   },
 
   async getPubById(id) {
     if (id) {
+      console.log("inside pub store getPubById");
       const pub = await Pub.findOne({ _id: id }).lean();
+      console.log("getPubById");
+      //console.log(pub.categoriesMusic[0]._id);
+      const categoriesMusic = await categoryMusicMongoStore.getCategoriesByIds(pub.categoriesMusic);
+      console.log("getPubById in pub mongo store");
+      //console.log(categoriesMusic);
+      pub.categoriesMusic = categoriesMusic;
+      console.log(pub);
       return pub;
     }
     return null;
@@ -38,10 +79,18 @@ export const pubMongoStore = {
     await Pub.deleteMany({});
   },
 
-  async updateTpub(pub, updatedPub) {
-    pub.title = updatedPub.title;
-    pub.artist = updatedPub.artist;
-    pub.duration = updatedPub.duration;
+  async updatePub(pubid, updatedPub) {
+    console.log("inside updatePub monog store");
+    console.log(updatedPub);
+    const pub = await Pub.findOne({ _id: pubid });
+    pub.name = updatedPub.name;
+    pub.city = updatedPub.city;
+    pub.country = updatedPub.country;
+    pub.lat = updatedPub.lat;
+    pub.lng = updatedPub.lng;
+    pub.img = updatedPub.img;
+    pub.categoriesMusic = updatedPub.categoriesMusic;
     await pub.save();
+    return pub;
   },
 };
