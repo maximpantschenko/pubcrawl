@@ -6,6 +6,7 @@ import { commentApi } from "./api/comment-api.js";
 
 export const apiRoutes = [
     { method: "GET", path: "/api/users", config: userApi.find },
+    { method: "GET", path: "/api/users/current", config: userApi.current },
     { method: "POST", path: "/api/users", config: userApi.create },
     { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
     { method: "GET", path: "/api/users/{id}", config: userApi.findOne },
