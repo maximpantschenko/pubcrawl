@@ -2,7 +2,6 @@ import { aboutController } from "./controllers/about-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { discoverController } from "./controllers/discover-controller.js";
 import { homeController } from "./controllers/home-controller.js";
-import { publistController } from "./controllers/publist-controller.js";
 import { pubController } from "./controllers/pub-controller.js";
 import { categoryController } from "./controllers/category-controller.js";
 import { adminController } from "./controllers/admin-controller.js";
@@ -27,31 +26,18 @@ export const webRoutes = [
   { method: "POST", path: "/users/update/{id}", config: adminController.updateUser },
 
   { method: "GET", path: "/home", config: homeController.index },
-  { method: "POST", path: "/home/addpublist", config: homeController.addPublist },
-  { method: "GET", path: "/home/deletepublist/{id}", config: homeController.deletePublist },
 
   { method: "GET", path: "/discover", config: discoverController.index },
 
   { method: "GET", path: "/about", config: aboutController.index },
 
-  { method: "GET", path: "/publist/{id}", config: publistController.index },
-  { method: "POST", path: "/publist/{id}/addpub", config: publistController.addPub},
-  { method: "GET", path: "/publist/{id}/deletepub/{pubid}", config: publistController.deletePub },
-  { method: "POST", path: "/publist/{id}/uploadimage", config: publistController.uploadImage },
-
-  //{ method: "GET", path: "/pub/{id}/editpub/{pubid}", config: pubController.index },
-  //{ method: "POST", path: "/pub/{id}/updatepub/{pubid}", config: pubController.update },
-  //{ method: "POST", path: "/pub/{id}/uploadimage/{pubid}", config: pubController.uploadImage },
   { method: "GET", path: "/pubs", config: pubController.getPubs },
   { method: "GET", path: "/pub/edit/{pubid}", config: pubController.edit },
   { method: "POST", path: "/pub/update/{pubid}", config: pubController.update },
+  { method: "GET", path: "/pub/delete/{pubid}", config: pubController.delete },
   { method: "POST", path: "/pub/{pubid}/image/upload", config: pubController.uploadImage },
   { method: "GET", path: "/pub/{pubid}/image/edit", config: pubController.editImage },
   { method: "GET", path: "/pub/{pubid}/image/delete", config: pubController.deleteImage },
-
-  // /pub/62b8aadfbeee1f35aa059319/image/edit
-
-  // /pub/{{pub._id}}/image/upload
 
   { method: "GET", path: "/category/music", config: categoryController.music.index },
   { method: "POST", path: "/category/music/add", config: categoryController.music.addCategory },

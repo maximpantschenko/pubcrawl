@@ -1,5 +1,4 @@
 import { Pub } from "./pub.js";
-import { Publist } from "./publist.js";
 import { categoryMusicMongoStore } from "./category-music-mongo-store.js";
 import { db } from "../db.js";
 
@@ -15,7 +14,6 @@ export const pubMongoStore = {
   },
 
   async addPub(userId, pub) {
-    //pub.publistid = publistId;
     pub.userid = userId;
     const newPub = new Pub(pub);
     const pubObj = await newPub.save();
@@ -24,11 +22,6 @@ export const pubMongoStore = {
 
   async getPubsByUserId(id){
     const pubs = await Pub.find( { userid: {$in: id } } );
-    return pubs;
-  },
-
-  async getPubsByPublistId(id) {
-    const pubs = await Pub.find({ publistid: id }).lean();
     return pubs;
   },
   
@@ -68,6 +61,7 @@ export const pubMongoStore = {
       console.log("getPubById in pub mongo store");
       //console.log(categoriesMusic);
       pub.categoriesMusic = categoriesMusic;
+      console.log(pub);
       return pub;
     }
     return null;
@@ -86,6 +80,8 @@ export const pubMongoStore = {
   },
 
   async updatePub(pubid, updatedPub) {
+    console.log("inside updatePub monog store");
+    console.log(updatedPub);
     const pub = await Pub.findOne({ _id: pubid });
     pub.name = updatedPub.name;
     pub.city = updatedPub.city;

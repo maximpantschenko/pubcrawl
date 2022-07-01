@@ -12,12 +12,6 @@ export const apiRoutes = [
     { method: "GET", path: "/api/users/{id}", config: userApi.findOne },
     { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 
-    //{ method: "POST", path: "/api/publists", config: publistApi.create },
-    //{ method: "DELETE", path: "/api/publists", config: publistApi.deleteAll },
-    //{ method: "GET", path: "/api/publists", config: publistApi.find },
-    //{ method: "GET", path: "/api/publists/{id}", config: publistApi.findOne },
-    //{ method: "DELETE", path: "/api/publists/{id}", config: publistApi.deleteOne },
-
     { method: "GET", path: "/api/pubs", config: pubApi.find },
     { method: "GET", path: "/api/pubs/{id}", config: pubApi.findOne },
     { method: "POST", path: "/api/pubs/create", config: pubApi.create },
@@ -35,5 +29,6 @@ export const apiRoutes = [
     { method: "GET", path: "/api/comments/all", config: commentApi.find },
     { method: "GET", path: "/api/comments/bypubid/{id}", config: commentApi.findByPubId },
     { method: "POST", path: "/api/comments/add", config: commentApi.create },
+    { method: "DELETE", path: "/api/comments/delete/{id}", config: commentApi.deleteOne },
 
 ];

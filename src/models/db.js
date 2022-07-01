@@ -7,7 +7,6 @@ import { publistJsonStore } from "./json/publist-json-store.js";
 import { pubJsonStore } from "./json/pub-json-store.js";
 
 import { userMongoStore } from "./mongo/user-mongo-store.js";
-import { publistMongoStore } from "./mongo/publist-mongo-store.js";
 import { pubMongoStore } from "./mongo/pub-mongo-store.js";
 import { categoryMusicMongoStore } from "./mongo/category-music-mongo-store.js";
 import { connectMongo } from "./mongo/connect.js";
@@ -28,7 +27,6 @@ export const db = {
         break;
       case "mongo":
         this.userStore = userMongoStore;
-        this.publistStore = publistMongoStore;
         this.pubStore = pubMongoStore;
         this.categoryMusicStore = categoryMusicMongoStore;
         this.commentStore = commentMongoStore;

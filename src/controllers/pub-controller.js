@@ -33,6 +33,30 @@ export const pubController = {
       },
     },
 
+    addPub: {
+      handler: async function (request, h){
+          const userId = request.auth.credentials._id;
+          const newPub = {
+              name: request.payload.name,
+              description: request.payload.description,
+              city: request.payload.city,
+              country: request.payload.country,
+              lat: request.payload.lat,
+              lng: request.payload.lng,
+              img: request.payload.img,
+          };
+          await db.pubStore.addPub(userId, newPub);
+          return h.redirect(`/pubs`);
+      },
+    },
+
+    delete: {
+      handler: async function(request, h){
+          await db.pubStore.deletePub(request.params.pubid);
+          return h.redirect(`/pubs`);
+      },
+    },
+
     edit: {
       handler: async function(request, h){
         console.log("inside edit pubcontroller");
@@ -61,6 +85,8 @@ export const pubController = {
 
     update: {
         handler: async function (request, h){
+          console.log("update pub img");
+          console.log(request.payload.img);
             const newPub = {
                 name: request.payload.name,
                 description: request.payload.description,
@@ -81,12 +107,16 @@ export const pubController = {
             //const publist = await db.publistStore.getPublistById(request.params.id);
             const pub = await db.pubStore.getPubById(request.params.pubid);
             const file = request.payload.imagefile;
-            console.log("upload image pub controller");
+            console.log("upload image pub controller *****************");
             console.log(request.payload.imagefile);
             if (Object.keys(file).length > 0) {
               const url = await imageStore.uploadImage(request.payload.imagefile);
               pub.img = url;
-              db.pubStore.updatePub(request.params.pubid, pub);
+              console.log("new url is: ");
+              console.log(pub.img);
+              const newPub = await db.pubStore.updatePub(request.params.pubid, pub);
+              console.log("new pub with new image");
+              console.log(newPub);
             }
             return h.redirect(`/pub/edit/${pub._id}`);
           } catch (err) {

@@ -20,13 +20,15 @@
                     <div class="card">
                         <div class="card-image">
                             <figure class="image">
-                            <img src="{{pub.img}}" alt="Image of Pub">
+                                <img src="{{pub.img}}"alt="Image of Pub">
                             </figure>
                         </div>
                         <p class="control">
                             <a href="/pub/{{pub._id}}/image/edit" class="button is-light">Edit Image</a>
                         </p>
                     </div>
+
+                    <input class="input" type="text" name="img" style="display: none;" value="{{pub.img}}">
 
                     <label>Enter Pub Details:</label>
                     <div class="field">
