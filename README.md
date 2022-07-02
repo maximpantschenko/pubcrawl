@@ -1,7 +1,10 @@
 # pubcrawl
 
+--------------------------
 Administration Page + API
+--------------------------
 
+Description: PubCrawl is a Community where Users can Discover Pubs in the whole World. 
 _________________________________________
 
 ----------------------
@@ -28,7 +31,7 @@ API:
 ----------------------
 
 Authentification: 
-- Signup
+- Sign Up
 - Login
 
 Users:
@@ -48,3 +51,7 @@ Categories:
   - Adding Category to Pub
   - Deleting Category from Pub
 
+Comments:
+- Functionalities:
+  - Adding Comments to Pub
+  - Deleting Comments from Pub
