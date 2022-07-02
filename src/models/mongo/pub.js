@@ -10,6 +10,7 @@ const pubSchema = new Schema({
   lat: String,
   lng: String,
   img: String,
+  images: [String],
   categoriesMusic: [{
     type: Schema.Types.ObjectId,
     ref: "CategoryMusic",

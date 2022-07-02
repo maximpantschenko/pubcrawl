@@ -42,7 +42,6 @@ export const commentApi = {
     },
     async handler(request) {
         try {
-          console.log("inside pub api find by pub id");
           const comments = await db.commentStore.getCommentsByPubId(request.params.id);
           const newComments = [];
           for(let i=0; i<comments.length; i++){
@@ -65,8 +64,6 @@ export const commentApi = {
             }
             newComments.push(newComment);
           }
-          console.log("comment api");
-          console.log(newComments);
           return newComments;
         } catch (err) {
           return Boom.serverUnavailable("No pub with this id");
@@ -80,9 +77,7 @@ export const commentApi = {
     },
     async handler(request) {
         try {
-          console.log("inside pub api find one");
           const comment = await db.commentStore.getCommentById(request.params.id);
-          console.log("comment api");
           if (!comment) {
             return Boom.notFound("No comment with this id");
           }
@@ -114,7 +109,6 @@ export const commentApi = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-        console.log("inside comment api");
         try {
           const newComment = {
             text: request.payload.text,
@@ -123,8 +117,6 @@ export const commentApi = {
             pubid: request.payload.pubid,
             userid: request.auth.credentials._id,
           };
-          console.log("newComment");
-          console.log(newComment);
           const comment = await db.commentStore.addComment(newComment);
           if (comment) {
             return h.response(comment).code(201);
@@ -160,7 +152,6 @@ export const commentApi = {
           const updatedComment = await db.pubStore.updateComment(oldComment, newComment);
           return updatedComment;
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },

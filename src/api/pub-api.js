@@ -13,7 +13,54 @@ export const pubApi = {
           pubs.forEach(function(pub){ delete pub.userid});
           return pubs;
         } catch (err) {
-          console.log(err);
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+  },
+
+  findWithUserDetail: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const pubs = await db.pubStore.getAllPubs();
+          const newPubs = [];
+          //pubs.forEach(function(pub){ delete pub.userid});
+          for(let i=0; i<pubs.length; i++){
+            const user = await db.userStore.getUserById(pubs[i].userid);
+            if(user != null){
+              newPubs.push({
+                _id: pubs[i]._id,
+                name: pubs[i].name,
+                city: pubs[i].city,
+                country: pubs[i].country,
+                description: pubs[i].description,
+                lat: pubs[i].lat,
+                lng: pubs[i].lng,
+                img: pubs[i].img,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+              });
+            }else{
+              newPubs.push({
+                _id: pubs[i]._id,
+                name: pubs[i].name,
+                city: pubs[i].city,
+                country: pubs[i].country,
+                description: pubs[i].description,
+                lat: pubs[i].lat,
+                lng: pubs[i].lng,
+                img: pubs[i].img,
+                firstName: "Anonymous",
+                lastName: "",
+                email: "Anonymous",
+              });
+            }
+          }
+          return newPubs;
+        } catch (err) {
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -28,7 +75,6 @@ export const pubApi = {
           const pubs = await db.pubStore.getPubsByUserId(request.params.id);
           return pubs;
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -45,7 +91,6 @@ export const pubApi = {
           pubs.forEach(function(pub){ delete pub.userid});
           return pubs;
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -67,11 +112,8 @@ export const pubApi = {
           if (!pub) {
             return Boom.notFound("No pub with this id");
           }
-          console.log("*****************");
-          console.log(pub);
           return pub;
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("No pub with this id");
         }
       },
@@ -87,13 +129,11 @@ export const pubApi = {
           pubs.forEach(function(pub){ delete pub.userid});
           return pubs;
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
   },
 
-  //{ method: "GET", path: "/api/pubs/search/{name}/{city}/{country}", config: pubApi.search },
   search: {
     auth: {
       strategy: "jwt",
@@ -101,22 +141,16 @@ export const pubApi = {
     handler: async function (request, h) {
         try {
           const array = request.params.string.split("&");
-          console.log(array);
           const sendArray = ["","",""];
           for(var i=0; i<array.length; i++){
             sendArray[i] = array[i];
           }
-          //const pubs = [];
-          //pubs.push(await db.pubStore.getPubsByName(request.params.name));
-          //pubs.push(await db.pubStore.getPubsByCity(request.params.city));
-          //pubs.push(await db.pubStore.getPubsByCountry(request.params.country));
-          //pubs.forEach(function(pub){ delete pub.userid});
+          //sendArray[0] is Name
+          //sendArray[1] is City
+          //sendArray[2] is Country
           const pubs = await db.pubStore.getPubsByNameCityCountry(sendArray[0], sendArray[1], sendArray[2]);
-          console.log("pubs:");
-          console.log(pubs);
           return pubs;
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -129,12 +163,6 @@ export const pubApi = {
     },
     handler: async function (request, h) {
         try {
-          //const publist = await db.publistStore.getPublistById(request.params.id);
-          //if(!publist){
-          //  return Boom.notFound("No publist with this id");
-          //}
-          console.log("inside create ##########################################")
-          console.log(request.auth.credentials._id);
           const userId = request.auth.credentials._id;
           const newPub = {
             name: request.payload.name,
@@ -144,6 +172,7 @@ export const pubApi = {
             lat: request.payload.lat,
             lng: request.payload.lng,
             img: request.payload.img,
+            images: [],
             categoriesMusic: request.payload.categoriesMusic,
           };
           if(request.payload.file!=null){
@@ -158,7 +187,6 @@ export const pubApi = {
             return h.response(pub).code(201);
           }
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -188,6 +216,7 @@ export const pubApi = {
             lat: request.payload.lat,
             lng: request.payload.lng,
             img: request.payload.img,
+            images: oldPub.images,
             categoriesMusic: request.payload.categoriesMusic,
           };
           if(request.payload.file!=null){
@@ -197,10 +226,9 @@ export const pubApi = {
               newPub.img = url;
             }
           }
-          const updatedPub = await db.pubStore.updatePub(oldPub, newPub);
+          const updatedPub = await db.pubStore.updatePub(oldPub._id, newPub);
           return updatedPub;
         } catch (err) {
-          console.log(err);
           return Boom.serverUnavailable("Database Error");
         }
       },
@@ -244,6 +272,25 @@ export const pubApi = {
       },
   },
 
+  /*
+  deleteImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      const pub = await db.pubStore.getPubById(request.params.pubid);
+      if (!pub) {
+        return Boom.notFound("No Pub with this id");
+      }
+      let success = await imageStore.deleteImage(request.payload.image);
+      if(success) {
+        success = await db.pubStore.deleteImage(pub._id, request.payload.image);
+      }
+      return success;
+    },
+  },
+  */
+
 
   /*
   userCanEdit: {
@@ -268,4 +315,36 @@ export const pubApi = {
       },
   },
   */
+
+
+  uploadImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const oldPub = await db.pubStore.getPubById(request.params.pubid);
+          if(!oldPub){
+            return Boom.notFound("No pub with this id");
+          }
+          if(request.payload.file!=null){
+            const file = request.payload.file;
+            if(Object.keys(file).length > 0){
+              const url = await imageStore.uploadImage(request.payload.file);
+              oldPub.images.push(url);
+            }
+          }
+          const updatedPub = await db.pubStore.updatePub(oldPub._id, oldPub);
+          return updatedPub;
+        } catch (err) {
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+      payload: {
+        multipart: true,
+        output: "data",
+        maxBytes: 209715200,
+        parse: true
+      },
+  },
 };

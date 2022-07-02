@@ -4,11 +4,9 @@ export const homeController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const publists = await db.publistStore.getUserPublists(loggedInUser._id);
       const viewData = {
         title: "PubCrawl Home",
         user: loggedInUser,
-        publists: publists,
       };
       return h.view("home-view", viewData);
     },

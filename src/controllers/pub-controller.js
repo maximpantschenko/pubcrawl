@@ -85,8 +85,6 @@ export const pubController = {
 
     update: {
         handler: async function (request, h){
-          console.log("update pub img");
-          console.log(request.payload.img);
             const newPub = {
                 name: request.payload.name,
                 description: request.payload.description,
@@ -107,20 +105,13 @@ export const pubController = {
             //const publist = await db.publistStore.getPublistById(request.params.id);
             const pub = await db.pubStore.getPubById(request.params.pubid);
             const file = request.payload.imagefile;
-            console.log("upload image pub controller *****************");
-            console.log(request.payload.imagefile);
             if (Object.keys(file).length > 0) {
               const url = await imageStore.uploadImage(request.payload.imagefile);
               pub.img = url;
-              console.log("new url is: ");
-              console.log(pub.img);
               const newPub = await db.pubStore.updatePub(request.params.pubid, pub);
-              console.log("new pub with new image");
-              console.log(newPub);
             }
             return h.redirect(`/pub/edit/${pub._id}`);
           } catch (err) {
-            console.log(err);
             return h.redirect(`/pub/${pub._id}/image/edit`);
           }
         },

@@ -19,20 +19,19 @@ export const imageStore = {
   },
 
   uploadImage: async function(imagefile) {
-    console.log("imagefile in uploadImage");
-    console.log(imagefile);
     await writeFileSync("./public/temp.img", imagefile);
     const response = await cloudinary.v2.uploader.upload("./public/temp.img");
     return response.url;
   },
 
   deleteImage: async function(img) {
+    let success = false;
     var pathname = new URL(img).pathname;
     const array = pathname.split("/");
     const imgId = array[(array.length)-1].split(".")[0];
-    console.log("###############image id:"+ imgId);
     await cloudinary.v2.uploader.destroy(imgId, function(error,result) {
-      console.log(result, error) 
+      success = result;
     });
+    return success;
   },
 };

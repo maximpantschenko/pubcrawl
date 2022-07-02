@@ -22,8 +22,6 @@ export const categoriesApi = {
       strategy: "jwt",
     },
     handler: async function (request, h){
-      console.log("categoriesApi");
-      console.log(request.payload.ids);
       try{
         const categoriesMusic = await db.categoryMusicStore.getCategoriesByIds(request.payload.ids);
         return categoriesMusic;
