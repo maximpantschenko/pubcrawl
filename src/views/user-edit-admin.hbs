@@ -38,11 +38,24 @@
                         </span>
                       </p>
                     </div>
+                    <div class="field" style="display: none">
+                      <label class="label">Password</label> 
+                      <p class="control has-icons-left">
+                        <input class="input" type="password" placeholder="Enter Password" name="password" value="{{user.password}}">
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                      </p>
+                    </div>
                     <div class="field">
                       <label class="label">Role</label>
                       {{#if admin}}
                         {{#if user.admin}}
-                          <p>Admin</p>
+                          <div class="select">
+                            <select name="admin">
+                              <option value="true" selected="selected">Admin</option>
+                            </select>
+                          </div>
                         {{else}}
                           <div class="select">
                             <select name="admin">
@@ -50,7 +63,7 @@
                               <option value="true">Admin</option>
                             </select>
                           </div>
-                            {{/if}}
+                          {{/if}}
                       {{/if}}
                     </div>
                     <!--
