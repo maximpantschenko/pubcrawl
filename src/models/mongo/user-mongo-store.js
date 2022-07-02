@@ -35,7 +35,6 @@ export const userMongoStore = {
     try {
       await User.deleteOne({ _id: id });
     } catch (error) {
-      console.log("bad id");
     }
   },
 

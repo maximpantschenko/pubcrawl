@@ -53,15 +53,9 @@ export const pubMongoStore = {
 
   async getPubById(id) {
     if (id) {
-      console.log("inside pub store getPubById");
       const pub = await Pub.findOne({ _id: id }).lean();
-      console.log("getPubById");
-      //console.log(pub.categoriesMusic[0]._id);
       const categoriesMusic = await categoryMusicMongoStore.getCategoriesByIds(pub.categoriesMusic);
-      console.log("getPubById in pub mongo store");
-      //console.log(categoriesMusic);
       pub.categoriesMusic = categoriesMusic;
-      console.log(pub);
       return pub;
     }
     return null;
@@ -71,7 +65,6 @@ export const pubMongoStore = {
     try {
       await Pub.deleteOne({ _id: id });
     } catch (error) {
-      console.log("bad id");
     }
   },
 
@@ -79,9 +72,18 @@ export const pubMongoStore = {
     await Pub.deleteMany({});
   },
 
+  /*
+  async deleteImage(pubid, image){
+    try{
+      await Pub.updateOne( { _id: pubid }, { $pull: { images: image } } );
+      return true;
+    } catch(error){
+      return false;
+    }
+  },
+  */
+
   async updatePub(pubid, updatedPub) {
-    console.log("inside updatePub monog store");
-    console.log(updatedPub);
     const pub = await Pub.findOne({ _id: pubid });
     pub.name = updatedPub.name;
     pub.city = updatedPub.city;
@@ -89,6 +91,7 @@ export const pubMongoStore = {
     pub.lat = updatedPub.lat;
     pub.lng = updatedPub.lng;
     pub.img = updatedPub.img;
+    pub.images = updatedPub.images;
     pub.categoriesMusic = updatedPub.categoriesMusic;
     await pub.save();
     return pub;

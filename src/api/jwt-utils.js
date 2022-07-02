@@ -23,7 +23,6 @@ export function createToken(user) {
       userInfo.userId = decoded.id;
       userInfo.email = decoded.email;
     } catch (e) {
-      console.log(e.message);
     }
     return userInfo;
   }

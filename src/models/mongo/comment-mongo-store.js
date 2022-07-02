@@ -54,7 +54,6 @@ export const commentMongoStore = {
     try {
       await Comment.deleteOne({ _id: id });
     } catch (error) {
-      console.log("bad id");
     }
   },
 

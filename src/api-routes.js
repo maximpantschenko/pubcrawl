@@ -19,6 +19,8 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/pubs", config: pubApi.deleteAll },
     { method: "DELETE", path: "/api/pubs/{id}", config: pubApi.deleteOne },
     { method: "POST", path: "/api/updatepub/{pubid}", config: pubApi.update},
+    { method: "POST", path: "/api/pubs/uploadimage/{pubid}", config: pubApi.uploadImage },
+    //{ method: "POST", path: "/api/pubs/deleteimage/{pubid}", config: pubApi.deleteImage },
     { method: "GET", path: "/api/pubs/user/{id}", config: pubApi.findByUserId },
     { method: "GET", path: "/api/pubs/currentuser", config: pubApi.findByCurrentUserId },
     { method: "GET", path: "/api/pubs/searchname/{string}", config: pubApi.searchName },

@@ -31,8 +31,6 @@ export const adminController = {
         getUsers: {
             handler: async function(request, h){
                 const users = await db.userStore.getAllUsers();
-                console.log("users");
-                console.log(users);
                 const viewData = {
                     title: "Users",
                     users: users,
