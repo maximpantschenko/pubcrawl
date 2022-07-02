@@ -4,7 +4,7 @@
     <div class="column is-narrow">
         <section class="section">
             <div class="box" style="width: 300px;">
-                {{> dashboard-menu active="a-users"}}
+                {{> dashboard-menu active="a-account"}}
             </div>
         </section>
     </div>
@@ -45,6 +45,16 @@
                         <i class="fas fa-lock"></i>
                       </span>
                     </p>
+                  </div>
+                  <div class="field">
+                    {{#if admin}}
+                    <label class="label">Role</label>
+                      <div class="select">
+                        <select name="admin">
+                          <option value="true" selected="selected">Admin</option>
+                        </select>
+                      </div>
+                    {{/if}}
                   </div>
                   <div class="field is-grouped">
                     <div class="control">
