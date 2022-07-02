@@ -19,6 +19,57 @@ export const pubApi = {
       },
   },
 
+  findWithUserDetail: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+        try {
+          const pubs = await db.pubStore.getAllPubs();
+          const newPubs = [];
+          //pubs.forEach(function(pub){ delete pub.userid});
+          for(let i=0; i<pubs.length; i++){
+            const user = await db.userStore.getUserById(pubs[i].userid);
+            console.log("inside foreach pubs user details");
+            console.log(user);
+            if(user != null){
+              newPubs.push({
+                _id: pubs[i]._id,
+                name: pubs[i].name,
+                city: pubs[i].city,
+                country: pubs[i].country,
+                description: pubs[i].description,
+                lat: pubs[i].lat,
+                lng: pubs[i].lng,
+                img: pubs[i].img,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+              });
+            }else{
+              newPubs.push({
+                _id: pubs[i]._id,
+                name: pubs[i].name,
+                city: pubs[i].city,
+                country: pubs[i].country,
+                description: pubs[i].description,
+                lat: pubs[i].lat,
+                lng: pubs[i].lng,
+                img: pubs[i].img,
+                firstName: "Anonymous",
+                lastName: "",
+                email: "Anonymous",
+              });
+            }
+          }
+          return newPubs;
+        } catch (err) {
+          console.log(err);
+          return Boom.serverUnavailable("Database Error");
+        }
+      },
+  },
+
   findByUserId : {
     auth: {
       strategy: "jwt",
@@ -93,7 +144,6 @@ export const pubApi = {
       },
   },
 
-  //{ method: "GET", path: "/api/pubs/search/{name}/{city}/{country}", config: pubApi.search },
   search: {
     auth: {
       strategy: "jwt",
@@ -106,11 +156,9 @@ export const pubApi = {
           for(var i=0; i<array.length; i++){
             sendArray[i] = array[i];
           }
-          //const pubs = [];
-          //pubs.push(await db.pubStore.getPubsByName(request.params.name));
-          //pubs.push(await db.pubStore.getPubsByCity(request.params.city));
-          //pubs.push(await db.pubStore.getPubsByCountry(request.params.country));
-          //pubs.forEach(function(pub){ delete pub.userid});
+          //sendArray[0] is Name
+          //sendArray[1] is City
+          //sendArray[2] is Country
           const pubs = await db.pubStore.getPubsByNameCityCountry(sendArray[0], sendArray[1], sendArray[2]);
           console.log("pubs:");
           console.log(pubs);
@@ -129,10 +177,6 @@ export const pubApi = {
     },
     handler: async function (request, h) {
         try {
-          //const publist = await db.publistStore.getPublistById(request.params.id);
-          //if(!publist){
-          //  return Boom.notFound("No publist with this id");
-          //}
           console.log("inside create ##########################################")
           console.log(request.auth.credentials._id);
           const userId = request.auth.credentials._id;

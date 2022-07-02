@@ -13,6 +13,7 @@ export const apiRoutes = [
     { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 
     { method: "GET", path: "/api/pubs", config: pubApi.find },
+    { method: "GET", path: "/api/pubs/extra", config: pubApi.findWithUserDetail },
     { method: "GET", path: "/api/pubs/{id}", config: pubApi.findOne },
     { method: "POST", path: "/api/pubs/create", config: pubApi.create },
     { method: "DELETE", path: "/api/pubs", config: pubApi.deleteAll },
